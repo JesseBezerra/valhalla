@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="575.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="575.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProdutoController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -59,22 +59,22 @@
             <Label layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="57.0" text="Código" />
             <Label layoutX="147.0" layoutY="8.0" prefHeight="17.0" prefWidth="318.0" text="Descrição" />
             <Label layoutX="471.0" layoutY="8.0" prefHeight="17.0" prefWidth="57.0" text="Ativo" />
-            <TextField layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="125.0" />
-            <TextField layoutX="147.0" layoutY="25.0" prefHeight="25.0" prefWidth="318.0" />
+            <TextField fx:id="cdProduto" layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="125.0" />
+            <TextField fx:id="dsProduto" layoutX="147.0" layoutY="25.0" prefHeight="25.0" prefWidth="318.0" />
             <Label layoutX="553.0" layoutY="8.0" prefHeight="17.0" prefWidth="57.0" text="Padrão" />
-            <ChoiceBox layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
-            <ChoiceBox layoutX="553.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
-            <TableView layoutX="14.0" layoutY="61.0" prefHeight="447.0" prefWidth="616.0">
+            <ChoiceBox fx:id="snAtivo" layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
+            <ChoiceBox fx:id="snPadrao" layoutX="553.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
+            <TableView fx:id="grdProduto" layoutX="14.0" layoutY="61.0" prefHeight="447.0" prefWidth="616.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Código" />
-                <TableColumn prefWidth="385.0" text="Descrição" />
-                  <TableColumn prefWidth="81.0" text="Ativo" />
-                  <TableColumn prefWidth="74.0" text="Padrão" />
+                <TableColumn fx:id="tbcCdProduto" prefWidth="75.0" text="Código" />
+                <TableColumn fx:id="tbcDsProduto" prefWidth="385.0" text="Descrição" />
+                  <TableColumn fx:id="tbcSnAtivo" prefWidth="81.0" text="Ativo" />
+                  <TableColumn fx:id="tbcSnPadrao" prefWidth="74.0" text="Padrão" />
               </columns>
             </TableView>
-            <Button layoutX="556.0" layoutY="513.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
-            <Button layoutX="14.0" layoutY="513.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
-            <Button layoutX="98.0" layoutY="513.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <Button layoutX="556.0" layoutY="513.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
+            <Button layoutX="14.0" layoutY="513.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
+            <Button layoutX="98.0" layoutY="513.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="74.0" text="Remover" />
          </children>
     </AnchorPane>
   </children>

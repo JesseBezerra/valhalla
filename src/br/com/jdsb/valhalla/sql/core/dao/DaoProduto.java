@@ -20,7 +20,7 @@ public class DaoProduto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public void criarTabelaProduto(){
-          String comando = "CREATE TABLE IF NOT EXISTS PRODUTO (CD_PRODUTO INTEGER PRIMARY KEY AUTOINCREMENT,DS_PRODUTO VARCHAR, SN_ATIVO VARCHAR) ";
+          String comando = "CREATE TABLE IF NOT EXISTS PRODUTO (CD_PRODUTO INTEGER PRIMARY KEY AUTOINCREMENT,DS_PRODUTO VARCHAR,SN_PADRAO VARCHAR DEFAULT 'N' , SN_ATIVO VARCHAR DEFAULT 'S' ) ";
           try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
@@ -33,12 +33,13 @@ public class DaoProduto implements Serializable {
 
 
 	public void inserirProduto(Produto produto){
-         String comando = "INSERT INTO PRODUTO(DS_PRODUTO,SN_ATIVO) VALUES (?,?)";
+         String comando = "INSERT INTO PRODUTO(DS_PRODUTO,SN_ATIVO,SN_PADRAO) VALUES (?,?,?)";
          try {
  			Connection connection = ConexaoLite.getConnection();
  		    PreparedStatement pstmt = connection.prepareStatement(comando);
  		    pstmt.setString(1, produto.getDsProduto());
  		    pstmt.setString(2, produto.getSnAtivo());
+ 		    pstmt.setString(3, produto.getSnPadrao());
  		    pstmt.execute();
  		} catch (SQLException e) {
  			// TODO Auto-generated catch block
@@ -48,14 +49,14 @@ public class DaoProduto implements Serializable {
 
 	public Produto buscarProduto(String dsProduto){
       Produto retorno = null;
-      String consulta = "SELECT CD_PRODUTO, DS_PRODUTO, SN_ATIVO FROM PRODUTO WHERE DS_PRODUTO = ?";
+      String consulta = "SELECT CD_PRODUTO, DS_PRODUTO, SN_ATIVO, SN_PADRAO FROM PRODUTO WHERE DS_PRODUTO = ?";
       try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(consulta);
 		    pstmt.setString(1, dsProduto);
 		    ResultSet rs = pstmt.executeQuery();
 		    while(rs.next()){
-		    	retorno =  new Produto(BigInteger.valueOf(rs.getInt("CD_PRODUTO")), rs.getString("DS_PRODUTO"), rs.getString("SN_ATIVO"));
+		    	retorno =  new Produto(BigInteger.valueOf(rs.getInt("CD_PRODUTO")), rs.getString("DS_PRODUTO"), rs.getString("SN_ATIVO"), rs.getString("SN_PADRAO"));
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,13 +70,13 @@ public class DaoProduto implements Serializable {
 	public List<Produto> buscarProdutos(){
       List<Produto> retorno = new ArrayList<Produto>();
 
-      String consulta = "SELECT CD_PRODUTO, DS_PRODUTO, SN_ATIVO FROM PRODUTO";
+      String consulta = "SELECT CD_PRODUTO, DS_PRODUTO, SN_ATIVO, SN_PADRAO FROM PRODUTO";
       try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(consulta);
 		    ResultSet rs = pstmt.executeQuery();
 		    while(rs.next()){
-		    	retorno.add(new Produto(BigInteger.valueOf(rs.getInt("CD_PRODUTO")), rs.getString("DS_PRODUTO"), rs.getString("SN_ATIVO")));
+		    	retorno.add(new Produto(BigInteger.valueOf(rs.getInt("CD_PRODUTO")), rs.getString("DS_PRODUTO"), rs.getString("SN_ATIVO"), rs.getString("SN_PADRAO")));
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,12 +89,12 @@ public class DaoProduto implements Serializable {
 	public static void main(String[] args) {
           DaoProduto daoProduto = new DaoProduto();
           daoProduto.criarTabelaProduto();
-          //daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "PEP", "S"));
-          //daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "SUPRI", "S"));
+          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "PEP", "S","N"));
+          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "SUPRI", "S","S"));
           List<Produto> lista = daoProduto.buscarProdutos();
 
           for(Produto produto:lista){
-        	  System.out.println(produto.getDsProduto());
+        	  System.out.println(produto);
           }
 
           Produto produto = daoProduto.buscarProduto("PEP");
