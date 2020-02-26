@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -62,8 +64,22 @@
             <TextField fx:id="cdProduto" layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="125.0" />
             <TextField fx:id="dsProduto" layoutX="147.0" layoutY="25.0" prefHeight="25.0" prefWidth="318.0" />
             <Label layoutX="553.0" layoutY="8.0" prefHeight="17.0" prefWidth="57.0" text="Padrão" />
-            <ChoiceBox fx:id="snAtivo" layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
-            <ChoiceBox fx:id="snPadrao" layoutX="553.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" />
+            <ChoiceBox fx:id="snAtivo" layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" value="Sim" >
+            <items>
+					<FXCollections fx:factory="observableArrayList">
+						<String fx:value="Sim" />
+						<String fx:value="Não" />
+					</FXCollections>
+				</items>
+            </ChoiceBox>
+            <ChoiceBox fx:id="snPadrao" layoutX="553.0" layoutY="25.0" prefHeight="25.0" prefWidth="74.0" value="Não">
+            <items>
+					<FXCollections fx:factory="observableArrayList">
+						<String fx:value="Sim" />
+						<String fx:value="Não" />
+					</FXCollections>
+				</items>
+            </ChoiceBox>
             <TableView fx:id="grdProduto" layoutX="14.0" layoutY="61.0" prefHeight="447.0" prefWidth="616.0">
               <columns>
                 <TableColumn fx:id="tbcCdProduto" prefWidth="75.0" text="Código" />

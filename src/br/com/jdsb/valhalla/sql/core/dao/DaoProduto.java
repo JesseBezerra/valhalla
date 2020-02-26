@@ -89,8 +89,8 @@ public class DaoProduto implements Serializable {
 	public static void main(String[] args) {
           DaoProduto daoProduto = new DaoProduto();
           daoProduto.criarTabelaProduto();
-          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "PEP", "S","N"));
-          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "SUPRI", "S","S"));
+//          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "PEP", "S","N"));
+//          daoProduto.inserirProduto(new Produto(BigInteger.valueOf(0), "SUPRI", "S","S"));
           List<Produto> lista = daoProduto.buscarProdutos();
 
           for(Produto produto:lista){
