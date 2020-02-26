@@ -1,21 +1,25 @@
 package br.com.jdsb.valhalla.sql.objects.produto;
 
-import java.io.Serializable;
 
-public class Produto implements Serializable {
+
+import java.io.Serializable;
+import java.math.BigInteger;
+
+public class Produto implements Serializable, Comparable<Produto> {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-    private String cdProduto;
-    private String dsProduto;
+	private BigInteger cdProduto;
+	private String dsProduto;
+	private String snAtivo;
 
-	public String getCdProduto() {
+	public BigInteger getCdProduto() {
 		return cdProduto;
 	}
-	public void setCdProduto(String cdProduto) {
+	public void setCdProduto(BigInteger cdProduto) {
 		this.cdProduto = cdProduto;
 	}
 	public String getDsProduto() {
@@ -24,6 +28,37 @@ public class Produto implements Serializable {
 	public void setDsProduto(String dsProduto) {
 		this.dsProduto = dsProduto;
 	}
+	public String getSnAtivo() {
+		return snAtivo;
+	}
+	public void setSnAtivo(String snAtivo) {
+		this.snAtivo = snAtivo;
+	}
+
+
+	public Produto(BigInteger cdProduto, String dsProduto, String snAtivo) {
+		super();
+		this.cdProduto = cdProduto;
+		this.dsProduto = dsProduto;
+		this.snAtivo = snAtivo;
+	}
+
+	public Produto() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public int compareTo(Produto o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public String toString() {
+		return "Produto [cdProduto=" + cdProduto + ", dsProduto=" + dsProduto + ", snAtivo=" + snAtivo + "]";
+	}
+
+
+
 
 
 

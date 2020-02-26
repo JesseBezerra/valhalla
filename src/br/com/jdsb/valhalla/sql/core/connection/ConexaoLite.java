@@ -35,7 +35,7 @@ public class ConexaoLite {
 
 	  private static Connection connection;
 
-		public static Connection getConnectio() throws SQLException{
+		public static Connection getConnection() throws SQLException{
 	      if(!new File("C:/empacotador/valhalla/valhalla.db").exists()){
              createNewDatabase("valhalla.db");
 	      }

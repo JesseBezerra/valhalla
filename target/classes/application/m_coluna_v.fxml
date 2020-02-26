@@ -108,7 +108,7 @@
                   <TableColumn fx:id="tbcIsNull" minWidth="0.0" prefWidth="57.0" text="Null" />
               </columns>
             </TableView>
-            <Button fx:id="btnSalvar" layoutX="579.0" layoutY="536.0" mnemonicParsing="false" text="Salvar" />
+            <Button fx:id="btnSalvar" layoutX="579.0" layoutY="536.0" mnemonicParsing="false" onAction="#save" text="Salvar" />
             <Button fx:id="btnRemover" layoutX="15.0" layoutY="536.0" mnemonicParsing="false" text="Remover" />
             <Button fx:id="btnLimpar" layoutX="85.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Limpar" />
       </children>
