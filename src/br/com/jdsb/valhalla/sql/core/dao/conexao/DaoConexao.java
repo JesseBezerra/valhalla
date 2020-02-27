@@ -41,7 +41,23 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void salvar(Conexao t) {
-		// TODO Auto-generated method stub
+		String comando = "INSERT INTO PREFIXO(DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO) VALUES (?,?,?,?,?,?,?,?,?)";
+		try {
+        	PreparedStatement pstmt = con.prepareStatement(comando);
+        	pstmt.setString(1, t.getDsConexao());
+        	pstmt.setString(2, t.getTpConexao());
+        	pstmt.setString(3, t.isCliente() ? "Sim":"Não");
+        	pstmt.setString(4, t.getDsUrl());
+        	pstmt.setString(5, t.getDsPorta());
+        	pstmt.setString(5, t.getDsSid());
+        	pstmt.setString(5, t.getDsUsuario());
+        	pstmt.setString(5, t.getDsSenha());
+        	pstmt.setString(5, t.getSnAtivo());
+			pstmt.execute();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
