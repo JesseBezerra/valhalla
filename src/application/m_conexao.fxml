@@ -59,21 +59,21 @@
          <children>
             <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" text="Código" />
             <Label layoutX="90.0" layoutY="14.0" prefHeight="17.0" prefWidth="271.0" text="Descrição" />
-            <TextField fx:id="cdPrefixo" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="68.0" />
-            <TextField fx:id="dsPrefixo" layoutX="89.0" layoutY="32.0" prefHeight="25.0" prefWidth="301.0" />
+            <TextField fx:id="cdConexao" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="dsConexao" layoutX="89.0" layoutY="32.0" prefHeight="25.0" prefWidth="301.0" />
             <Label layoutX="14.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="URL" />
-            <TextField fx:id="cdPrefixo1" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="375.0" />
+            <TextField fx:id="dsUrl" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="375.0" />
             <Label layoutX="398.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="Porta" />
-            <TextField fx:id="cdPrefixo2" layoutX="398.0" layoutY="81.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="dsPorta" layoutX="398.0" layoutY="81.0" prefHeight="25.0" prefWidth="68.0" />
             <Label layoutX="477.0" layoutY="63.0" prefHeight="17.0" prefWidth="91.0" text="Sid/Service" />
-            <TextField fx:id="cdPrefixo21" layoutX="477.0" layoutY="81.0" prefHeight="25.0" prefWidth="152.0" />
+            <TextField fx:id="dsSid" layoutX="477.0" layoutY="81.0" prefHeight="25.0" prefWidth="152.0" />
             <Label layoutX="400.0" layoutY="15.0" prefHeight="17.0" prefWidth="132.0" text="Tipo de Utilização" />
-            <ChoiceBox fx:id="tpObjeto" layoutX="400.0" layoutY="32.0" prefHeight="25.0" prefWidth="132.0" />
+            <ChoiceBox fx:id="tpConexao" layoutX="400.0" layoutY="32.0" prefHeight="25.0" prefWidth="132.0" />
             <Label layoutX="14.0" layoutY="114.0" prefHeight="17.0" prefWidth="132.0" text="Usuário" />
-            <TextField fx:id="cdPrefixo211" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
+            <TextField fx:id="dsUsuario" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
             <Label layoutX="243.0" layoutY="114.0" prefHeight="17.0" prefWidth="132.0" text="Senha" />
-            <TextField fx:id="cdPrefixo2111" layoutX="243.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
-            <CheckBox fx:id="isConstraint" alignment="BOTTOM_LEFT" layoutX="545.0" layoutY="34.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" text="Cliente" />
+            <TextField fx:id="dsSenha" layoutX="243.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
+            <CheckBox fx:id="isCliente" alignment="BOTTOM_LEFT" layoutX="545.0" layoutY="34.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" text="Cliente" />
             <TreeTableView layoutX="14.0" layoutY="170.0" prefHeight="360.0" prefWidth="615.0">
               <columns>
                 <TreeTableColumn prefWidth="285.0" text="Descrição" />
