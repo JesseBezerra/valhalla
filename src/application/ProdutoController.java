@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.jdsb.valhalla.sql.core.dao.DaoProduto;
+import br.com.jdsb.valhalla.sql.core.dao.produto.DaoProduto;
 import br.com.jdsb.valhalla.sql.objects.produto.Produto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

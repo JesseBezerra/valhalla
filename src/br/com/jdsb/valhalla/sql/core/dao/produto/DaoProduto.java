@@ -1,4 +1,4 @@
-package br.com.jdsb.valhalla.sql.core.dao;
+package br.com.jdsb.valhalla.sql.core.dao.produto;
 
 import java.io.Serializable;
 import java.math.BigInteger;
