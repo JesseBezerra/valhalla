@@ -1,66 +1,118 @@
 package br.com.jdsb.valhalla.sql.objects.objeto;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
+import java.math.BigInteger;
 
-public class Objeto {
+public class Objeto implements Serializable, Comparable<Objeto> {
 
-	private BigDecimal codigo;
-	private String nome;
-	private String cabecalho;
-	private String corpo;
-	private String tipo;
-	private String produto;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public Objeto(BigDecimal codigo, String nome, String cabecalho, String corpo, String tipo, String produto) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.cabecalho = cabecalho;
-		this.corpo = corpo;
-		this.tipo = tipo;
-		this.produto = produto;
+	private BigInteger cdObjeto;
+	private String dsObjeto;
+	private String snAtivo;
+	private String snPadrao;
+
+
+	public BigInteger getCdObjeto() {
+		return cdObjeto;
+	}
+	public void setCdObjeto(BigInteger cdObjeto) {
+		this.cdObjeto = cdObjeto;
+	}
+	public String getDsObjeto() {
+		return dsObjeto;
+	}
+	public void setDsObjeto(String dsObjeto) {
+		this.dsObjeto = dsObjeto;
+	}
+	public String getSnAtivo() {
+		return snAtivo;
+	}
+	public void setSnAtivo(String snAtivo) {
+		this.snAtivo = snAtivo;
+	}
+	public String getSnPadrao() {
+		return snPadrao;
+	}
+	public void setSnPadrao(String snPadrao) {
+		this.snPadrao = snPadrao;
 	}
 
 	public Objeto() {
-
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getProduto() {
-		return produto;
+	public Objeto(BigInteger cdObjeto, String dsObjeto, String snAtivo, String snPadrao) {
+		super();
+		this.cdObjeto = cdObjeto;
+		this.dsObjeto = dsObjeto;
+		this.snAtivo = snAtivo;
+		this.snPadrao = snPadrao;
 	}
-	public void setProduto(String produto) {
-		this.produto = produto;
+
+	@Override
+	public String toString() {
+		return "Objeto [cdObjeto=" + cdObjeto + ", dsObjeto=" + dsObjeto + ", snAtivo=" + snAtivo + ", snPadrao="
+				+ snPadrao + "]";
 	}
-	public BigDecimal getCodigo() {
-		return codigo;
+	@Override
+	public int compareTo(Objeto o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	public void setCodigo(BigDecimal codigo) {
-		this.codigo = codigo;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cdObjeto == null) ? 0 : cdObjeto.hashCode());
+		result = prime * result + ((dsObjeto == null) ? 0 : dsObjeto.hashCode());
+		result = prime * result + ((snAtivo == null) ? 0 : snAtivo.hashCode());
+		result = prime * result + ((snPadrao == null) ? 0 : snPadrao.hashCode());
+		return result;
 	}
-	public String getNome() {
-		return nome;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Objeto other = (Objeto) obj;
+		if (cdObjeto == null) {
+			if (other.cdObjeto != null)
+				return false;
+		} else if (!cdObjeto.equals(other.cdObjeto))
+			return false;
+		if (dsObjeto == null) {
+			if (other.dsObjeto != null)
+				return false;
+		} else if (!dsObjeto.equals(other.dsObjeto))
+			return false;
+		if (snAtivo == null) {
+			if (other.snAtivo != null)
+				return false;
+		} else if (!snAtivo.equals(other.snAtivo))
+			return false;
+		if (snPadrao == null) {
+			if (other.snPadrao != null)
+				return false;
+		} else if (!snPadrao.equals(other.snPadrao))
+			return false;
+		return true;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getCabecalho() {
-		return cabecalho;
-	}
-	public void setCabecalho(String cabecalho) {
-		this.cabecalho = cabecalho;
-	}
-	public String getCorpo() {
-		return corpo;
-	}
-	public void setCorpo(String corpo) {
-		this.corpo = corpo;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+
+
+
+
+
+
+
+
+
 
 
 

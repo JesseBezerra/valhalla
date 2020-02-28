@@ -9,13 +9,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrefixoController">
+<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -59,36 +59,38 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Label layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="68.0" text="Código" />
-            <Label layoutX="87.0" layoutY="18.0" prefHeight="17.0" prefWidth="271.0" text="Descrição" />
-            <Label layoutX="399.0" layoutY="18.0" prefHeight="17.0" prefWidth="68.0" text="Prefixo" />
-            <Label layoutX="497.0" layoutY="18.0" prefHeight="17.0" prefWidth="94.0" text="Tipo de Objeto" />
-            <TextField fx:id="cdPrefixo" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
-            <TextField fx:id="dsPrefixo" layoutX="87.0" layoutY="35.0" prefHeight="25.0" prefWidth="301.0" />
-            <TextField fx:id="vlPrefixo" layoutX="399.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" />
-            <ChoiceBox fx:id="tpObjeto" layoutX="497.0" layoutY="35.0" prefHeight="25.0" prefWidth="132.0" />
-            <Label layoutX="144.0" layoutY="70.0" prefHeight="17.0" prefWidth="87.0" text="Ativo" />
-            <ChoiceBox fx:id="snAtivo" layoutX="144.0" layoutY="86.0" prefHeight="25.0" prefWidth="111.0" value="Sim">
-            <items>
-					<FXCollections fx:factory="observableArrayList">
-						<String fx:value="Sim" />
-						<String fx:value="Não" />
-					</FXCollections>
-				</items>
+            <Label layoutX="87.0" layoutY="18.0" prefHeight="17.0" prefWidth="301.0" text="Descrição" />
+            <TextField fx:id="cdObjeto" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="dsObjeto" layoutX="87.0" layoutY="35.0" prefHeight="25.0" prefWidth="310.0" />
+            <Label layoutX="511.0" layoutY="18.0" prefHeight="17.0" prefWidth="87.0" text="Padrão" />
+            <ChoiceBox fx:id="snPadrao" layoutX="510.0" layoutY="35.0" prefHeight="25.0" prefWidth="111.0" value="Sim">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Sim" />
+                     <String fx:value="Não" />
+                  </FXCollections>
+               </items>
             </ChoiceBox>
-            <TableView fx:id="grdPrefixo" layoutX="14.0" layoutY="120.0" prefHeight="415.0" prefWidth="615.0">
+            <TreeTableView fx:id="grdObjetos" layoutX="14.0" layoutY="72.0" prefHeight="462.0" prefWidth="609.0">
               <columns>
-                <TableColumn fx:id="tbcCdPrefixo" prefWidth="75.0" text="Código" />
-                <TableColumn fx:id="tbcDsPrefixo" prefWidth="251.0" text="Descrição" />
-                  <TableColumn fx:id="tbcVlPrefixo" prefWidth="83.0" text="Prefixo" />
-                  <TableColumn fx:id="tbcTpObjeto" prefWidth="135.0" text="Tipo de Objeto" />
-                  <TableColumn fx:id="tbcSnAtivo" prefWidth="70.0" text="Ativo" />
+                <TreeTableColumn fx:id="tbcTbObjeto" prefWidth="67.0" text="Código" />
+                <TreeTableColumn fx:id="tbcDsObjeto" prefWidth="364.0" text="Descrição" />
+                  <TreeTableColumn fx:id="tbcSnAtivo" prefWidth="97.0" text="Ativo" />
+                  <TreeTableColumn fx:id="tbcSnPadrao" prefWidth="79.0" text="Padrão" />
               </columns>
-            </TableView>
-            <Button layoutX="15.0" layoutY="544.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
-            <Button layoutX="99.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Remover" />
-            <Button layoutX="555.0" layoutY="544.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
-            <Label layoutX="14.0" layoutY="70.0" prefHeight="17.0" prefWidth="132.0" text="Tipo de Dado Padrão" />
-            <ChoiceBox fx:id="tpDado" layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="119.0" />
+            </TreeTableView>
+            <Button layoutX="14.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
+            <Button layoutX="97.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <Button layoutX="547.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <ChoiceBox fx:id="snAtivo" layoutX="404.0" layoutY="35.0" prefHeight="25.0" prefWidth="99.0" value="Sim">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Sim" />
+                     <String fx:value="Não" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Label layoutX="405.0" layoutY="18.0" prefHeight="17.0" prefWidth="87.0" text="Ativo" />
          </children>
     </AnchorPane>
   </children>

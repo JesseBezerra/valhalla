@@ -24,6 +24,7 @@ public class PrefixoController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		dao = new DaoPrefixo();
+		carregarDados();
 	}
 
 	@FXML
@@ -69,15 +70,14 @@ public class PrefixoController implements Initializable {
 		for(Prefixo cliente:dao.listar()) {
 			populateTable.add(cliente);
 		}
+
 		tbcCdPrefixo.setCellValueFactory(new PropertyValueFactory<Prefixo,BigInteger>("cdPrefixo"));
 		tbcDsPrefixo.setCellValueFactory(new PropertyValueFactory<Prefixo,String>("dsPrefixo"));
+		tbcVlPrefixo.setCellValueFactory(new PropertyValueFactory<Prefixo,String>("vlPrefixo"));
+		tbcTpObjeto.setCellValueFactory(new PropertyValueFactory<Prefixo,String>("tpObjeto"));
+		tbcSnAtivo.setCellValueFactory(new PropertyValueFactory<Prefixo,String>("snAtivo"));
 
-		tbEmailCliente.setCellValueFactory(new PropertyValueFactory<Cliente,String>("eMail"));
-
-		tbSnLTS.setCellValueFactory(new PropertyValueFactory<Cliente,String>("snLts"));
-		tbSnAtivo.setCellValueFactory(new PropertyValueFactory<Cliente,String>("snAtivo"));
-
-		grdCliente.setItems(populateTable);;
+		grdPrefixo.setItems(populateTable);;
 	}
 
     public void salvar(){
