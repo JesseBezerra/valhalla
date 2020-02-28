@@ -1,8 +1,11 @@
 package br.com.jdsb.valhalla.sql.core.dao.conexao;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
@@ -41,7 +44,7 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void salvar(Conexao t) {
-		String comando = "INSERT INTO PREFIXO(DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO) VALUES (?,?,?,?,?,?,?,?,?)";
+		String comando = "INSERT INTO CONEXAO(DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO) VALUES (?,?,?,?,?,?,?,?,?)";
 		try {
         	PreparedStatement pstmt = con.prepareStatement(comando);
         	pstmt.setString(1, t.getDsConexao());
@@ -49,10 +52,10 @@ public class DaoConexao implements Dao<Conexao> {
         	pstmt.setString(3, t.isCliente() ? "Sim":"Não");
         	pstmt.setString(4, t.getDsUrl());
         	pstmt.setString(5, t.getDsPorta());
-        	pstmt.setString(5, t.getDsSid());
-        	pstmt.setString(5, t.getDsUsuario());
-        	pstmt.setString(5, t.getDsSenha());
-        	pstmt.setString(5, t.getSnAtivo());
+        	pstmt.setString(6, t.getDsSid());
+        	pstmt.setString(7, t.getDsUsuario());
+        	pstmt.setString(8, t.getDsSenha());
+        	pstmt.setString(9, t.getSnAtivo());
 			pstmt.execute();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -63,19 +66,50 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public Conexao consultar(String condicao) {
-		// TODO Auto-generated method stub
-		return null;
+		Conexao retorno = null ;
+
+	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO FROM CONEXAO WHERE DS_CONEXAO = ?  ";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, condicao);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno =  (new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE").equals("Sim"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
 	}
 
 	@Override
 	public List<Conexao> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		 List<Conexao> retorno = new ArrayList<Conexao>();
+
+	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO FROM CONEXAO ";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE").equals("Sim"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
 	}
 
 	public static void main(String[] args) {
 		Dao<Conexao> dao = new DaoConexao();
 		dao.criarTabela();
+		dao.salvar(new Conexao(null, "V_60D", "phoenix", "1521", "v60d", "TESTE", "dbamv", "dbamv", false, "Sim"));
+		for(Conexao conexao:dao.listar()){
+            System.out.println(conexao);
+		}
 	}
 
 }
