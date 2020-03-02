@@ -109,4 +109,22 @@ public class DaoPrefixo implements Dao<Prefixo> {
          }
 	}
 
+	@Override
+	public void atualizar(Prefixo t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remover(Prefixo t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean validaPadrao(Prefixo t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

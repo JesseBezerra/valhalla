@@ -60,7 +60,7 @@
          <children>
             <Label layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="68.0" text="Código" />
             <Label layoutX="87.0" layoutY="18.0" prefHeight="17.0" prefWidth="301.0" text="Descrição" />
-            <TextField fx:id="cdObjeto" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="cdObjeto" disable="true" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
             <TextField fx:id="dsObjeto" layoutX="87.0" layoutY="35.0" prefHeight="25.0" prefWidth="310.0" />
             <Label layoutX="511.0" layoutY="18.0" prefHeight="17.0" prefWidth="87.0" text="Padrão" />
             <ChoiceBox fx:id="snPadrao" layoutX="510.0" layoutY="35.0" prefHeight="25.0" prefWidth="111.0" value="Não">

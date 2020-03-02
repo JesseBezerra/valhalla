@@ -96,4 +96,65 @@ public class DaoObjeto implements Dao<Objeto> {
 		daoObjeto.criarTabela();
 	}
 
+	@Override
+	public void atualizar(Objeto t) {
+		String comando = "UPDATE OBJETO SET DS_OBJETO = ?, SN_ATIVO = ?, SN_PADRAO = ? WHERE CD_OBJETO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, t.getDsObjeto());
+		    pstmt.setString(2, t.getSnAtivo());
+		    pstmt.setString(3, t.getSnPadrao());
+		    pstmt.setLong(4, t.getCdObjeto().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void remover(Objeto t) {
+		String comando = "DELETE FROM OBJETO WHERE CD_OBJETO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setLong(1, t.getCdObjeto().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public boolean validaPadrao(Objeto t) {
+		boolean retorno = false;
+		  String consulta = null;
+		 if(t.getCdObjeto()==null){
+	       consulta = "SELECT * FROM OBJETO WHERE SN_PADRAO = 'Sim'";
+		 }else{
+			 consulta = "SELECT * FROM OBJETO WHERE SN_PADRAO = 'Sim' AND CD_OBJETO <> ?";
+		 }
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    if(t.getCdObjeto()!=null){
+			    	pstmt.setLong(1, t.getCdObjeto().longValue());
+			    }
+
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno = true;
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
 }

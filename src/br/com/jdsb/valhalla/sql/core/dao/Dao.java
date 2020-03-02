@@ -12,4 +12,10 @@ public interface Dao<T> extends Serializable {
 	public T consultar(String condicao);
 
 	public List<T> listar();
+
+	public void atualizar(T t);
+
+	public void remover(T t);
+
+	public boolean validaPadrao(T t);
 }

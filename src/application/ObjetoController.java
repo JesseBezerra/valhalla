@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.objeto.DaoObjeto;
+import br.com.jdsb.valhalla.sql.core.jfx.dialog.Dialogs;
 import br.com.jdsb.valhalla.sql.objects.objeto.Objeto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,17 @@ public class ObjetoController implements Initializable {
 		snAtivo.setItems(options);
 		snAtivo.setValue("Sim");
 		carregarDados();
+
+		grdObjetos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		    	Objeto objeto = new Objeto();
+		    	objeto = grdObjetos.getSelectionModel().getSelectedItem();
+		    	cdObjeto.setText(String.valueOf(objeto.getCdObjeto()));
+		    	dsObjeto.setText(objeto.getDsObjeto());
+		    	snAtivo.setValue(objeto.getSnAtivo());
+		    	snPadrao.setValue(objeto.getSnPadrao());
+		    }
+		});
 	}
 
 	ObservableList<String> options = FXCollections.observableArrayList("Sim","Não");
@@ -92,8 +104,24 @@ public class ObjetoController implements Initializable {
 
 	@FXML
 	void remover(ActionEvent event) {
+		Objeto objeto = new Objeto();
+		objeto.setDsObjeto(dsObjeto.getText());
+		objeto.setSnAtivo(snAtivo.getValue().toString());
+		objeto.setSnPadrao(snPadrao.getValue().toString());
+        if(cdObjeto.getText()==null || cdObjeto.getText().isEmpty()){
+        	limpar();
+        }else{
+        	objeto.setCdObjeto(BigInteger.valueOf(Long.parseLong(cdObjeto.getText())));
+        	dao.remover(objeto);
+        }
 
+
+
+        objeto = null;
+        limpar();
+        carregarDados();
 	}
+
 
 	@FXML
 	void salvar(ActionEvent event) {
@@ -101,8 +129,23 @@ public class ObjetoController implements Initializable {
 		objeto.setDsObjeto(dsObjeto.getText());
 		objeto.setSnAtivo(snAtivo.getValue().toString());
 		objeto.setSnPadrao(snPadrao.getValue().toString());
+        if(cdObjeto.getText()==null || cdObjeto.getText().isEmpty()){
+        	if(snPadrao.getValue().equals("Sim") && dao.validaPadrao(objeto)){
+        		Dialogs.AletaW("Atenção", "Já existe um objeto padrão definido", "Configure o objeto para não padrão");
+        		System.out.println("ja existe um objeto padrao");
+        	}else{
+        	  dao.salvar(objeto);
+        	}
+        }else{
+        	objeto.setCdObjeto(BigInteger.valueOf(Long.parseLong(cdObjeto.getText())));
+        	 if(snPadrao.getValue().equals("Sim") &&  dao.validaPadrao(objeto)){
+        		 Dialogs.AletaW("Atenção", "Já existe um objeto padrão definido", "Configure o objeto para não padrão");
+             	}else{
+             		dao.atualizar(objeto);
+             	}
+        }
 
-		dao.salvar(objeto);
+
 
         objeto = null;
         limpar();
@@ -110,6 +153,7 @@ public class ObjetoController implements Initializable {
 	}
 
 	private void limpar(){
+		cdObjeto.setText("");
 		dsObjeto.setText("");
 		snAtivo.setValue("Sim");
 		snPadrao.setValue("Não");

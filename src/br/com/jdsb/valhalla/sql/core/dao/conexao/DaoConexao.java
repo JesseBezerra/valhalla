@@ -112,4 +112,22 @@ public class DaoConexao implements Dao<Conexao> {
 		}
 	}
 
+	@Override
+	public void atualizar(Conexao t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remover(Conexao t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean validaPadrao(Conexao t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
