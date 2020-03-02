@@ -1,4 +1,4 @@
-package br.com.jdsb.valhalla.sql.core.dao;
+package br.com.jdsb.valhalla.sql.core.dao.objeto;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
+import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.objects.objeto.Objeto;
 
 public class DaoObjeto implements Dao<Objeto> {
@@ -88,6 +89,11 @@ public class DaoObjeto implements Dao<Objeto> {
 			}
 
 	      return retorno;
+	}
+
+	public static void main(String[] args) {
+		DaoObjeto daoObjeto = new DaoObjeto();
+		daoObjeto.criarTabela();
 	}
 
 }

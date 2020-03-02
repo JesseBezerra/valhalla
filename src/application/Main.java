@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			try {
-				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_prefixo.fxml"));
+				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_objeto.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);

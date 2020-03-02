@@ -9,13 +9,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ObjetoController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -63,7 +63,7 @@
             <TextField fx:id="cdObjeto" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
             <TextField fx:id="dsObjeto" layoutX="87.0" layoutY="35.0" prefHeight="25.0" prefWidth="310.0" />
             <Label layoutX="511.0" layoutY="18.0" prefHeight="17.0" prefWidth="87.0" text="Padrão" />
-            <ChoiceBox fx:id="snPadrao" layoutX="510.0" layoutY="35.0" prefHeight="25.0" prefWidth="111.0" value="Sim">
+            <ChoiceBox fx:id="snPadrao" layoutX="510.0" layoutY="35.0" prefHeight="25.0" prefWidth="111.0" value="Não">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Sim" />
@@ -71,17 +71,9 @@
                   </FXCollections>
                </items>
             </ChoiceBox>
-            <TreeTableView fx:id="grdObjetos" layoutX="14.0" layoutY="72.0" prefHeight="462.0" prefWidth="609.0">
-              <columns>
-                <TreeTableColumn fx:id="tbcTbObjeto" prefWidth="67.0" text="Código" />
-                <TreeTableColumn fx:id="tbcDsObjeto" prefWidth="364.0" text="Descrição" />
-                  <TreeTableColumn fx:id="tbcSnAtivo" prefWidth="97.0" text="Ativo" />
-                  <TreeTableColumn fx:id="tbcSnPadrao" prefWidth="79.0" text="Padrão" />
-              </columns>
-            </TreeTableView>
-            <Button layoutX="14.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
-            <Button layoutX="97.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Remover" />
-            <Button layoutX="547.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <Button fx:id="btn_limpar" layoutX="14.0" layoutY="543.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
+            <Button fx:id="btn_remover" layoutX="97.0" layoutY="543.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <Button fx:id="btn_salvar" layoutX="547.0" layoutY="543.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
             <ChoiceBox fx:id="snAtivo" layoutX="404.0" layoutY="35.0" prefHeight="25.0" prefWidth="99.0" value="Sim">
                <items>
                   <FXCollections fx:factory="observableArrayList">
@@ -91,6 +83,14 @@
                </items>
             </ChoiceBox>
             <Label layoutX="405.0" layoutY="18.0" prefHeight="17.0" prefWidth="87.0" text="Ativo" />
+            <TableView fx:id="grdObjetos" layoutX="14.0" layoutY="73.0" prefHeight="460.0" prefWidth="607.0">
+              <columns>
+                <TableColumn fx:id="tbcCdObjeto" prefWidth="69.0" text="Código" />
+                <TableColumn fx:id="tbcDsObjeto" prefWidth="359.0" text="Descrição" />
+                  <TableColumn fx:id="tbcSnAtivo" prefWidth="92.0" text="Ativo" />
+                  <TableColumn fx:id="tbcSnPadrao" prefWidth="86.0" text="Padrão" />
+              </columns>
+            </TableView>
          </children>
     </AnchorPane>
   </children>
