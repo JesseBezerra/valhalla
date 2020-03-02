@@ -111,13 +111,36 @@ public class DaoPrefixo implements Dao<Prefixo> {
 
 	@Override
 	public void atualizar(Prefixo t) {
-		// TODO Auto-generated method stub
+		String comando = "UPDATE PREFIXO SET DS_PREFIXO = ?, SN_ATIVO = ?, VL_PREFIXO = ?,TP_DADO=? ,TP_OBJETO=? WHERE CD_PREFIXO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, t.getDsPrefixo());
+		    pstmt.setString(2, t.getSnAtivo());
+		    pstmt.setString(3, t.getVlPrefixo());
+		    pstmt.setString(4, t.getTpDado());
+		    pstmt.setString(5, t.getTpObjeto());
+		    pstmt.setLong(6, t.getCdPrefixo().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void remover(Prefixo t) {
-		// TODO Auto-generated method stub
+		String comando = "DELETE FROM PREFIXO WHERE CD_PREFIXO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setLong(1, t.getCdPrefixo().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

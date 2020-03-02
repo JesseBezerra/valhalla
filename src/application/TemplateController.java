@@ -26,7 +26,7 @@ public class TemplateController implements Initializable{
 	public void salvar(){
 		Document doc = Jsoup.parse(editor.getHtmlText());
         Element  element = doc.select("html").first();
-		System.out.println(element.text());
+		System.out.println(doc.text());
 	}
 
 }

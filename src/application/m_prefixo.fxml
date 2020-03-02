@@ -62,7 +62,7 @@
             <Label layoutX="87.0" layoutY="18.0" prefHeight="17.0" prefWidth="271.0" text="Descrição" />
             <Label layoutX="399.0" layoutY="18.0" prefHeight="17.0" prefWidth="68.0" text="Prefixo" />
             <Label layoutX="497.0" layoutY="18.0" prefHeight="17.0" prefWidth="94.0" text="Tipo de Objeto" />
-            <TextField fx:id="cdPrefixo" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="cdPrefixo" disable="true" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="68.0" />
             <TextField fx:id="dsPrefixo" layoutX="87.0" layoutY="35.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="vlPrefixo" layoutX="399.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" />
             <ChoiceBox fx:id="tpObjeto" layoutX="497.0" layoutY="35.0" prefHeight="25.0" prefWidth="132.0" />
@@ -84,9 +84,9 @@
                   <TableColumn fx:id="tbcSnAtivo" prefWidth="70.0" text="Ativo" />
               </columns>
             </TableView>
-            <Button layoutX="15.0" layoutY="544.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
-            <Button layoutX="99.0" layoutY="545.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Remover" />
-            <Button layoutX="555.0" layoutY="544.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
+            <Button layoutX="15.0" layoutY="544.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="74.0" text="Limpar" />
+            <Button layoutX="99.0" layoutY="545.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="74.0" text="Remover" />
+            <Button layoutX="555.0" layoutY="544.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="74.0" text="Salvar" />
             <Label layoutX="14.0" layoutY="70.0" prefHeight="17.0" prefWidth="132.0" text="Tipo de Dado Padrão" />
             <ChoiceBox fx:id="tpDado" layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="119.0" />
          </children>
