@@ -29,7 +29,6 @@ public class PrefixoController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		dao = new DaoPrefixo();
 		daoObject = new DaoObjeto();
 
@@ -112,6 +111,7 @@ public class PrefixoController implements Initializable {
             prefixo.setVlPrefixo(vlPrefixo.getText());
             prefixo.setTpObjeto(tpObjeto.getValue());
             prefixo.setSnAtivo(snAtivo.getValue());
+            prefixo.setTpDado(tpDado.getValue());
             if(cdPrefixo.getText()==null || cdPrefixo.getText().isEmpty()){
                dao.salvar(prefixo);
             }else{
