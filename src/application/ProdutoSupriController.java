@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 public class ProdutoSupriController implements Initializable {
 
 	ObservableList<String> options = FXCollections.observableArrayList("Sim","Não");
+	ObservableList<String> optionsKit = FXCollections.observableArrayList("Formula","Produção");
+
 	ObservableList<String> optionsConsig = FXCollections.observableArrayList("Consignado","Reprocessado","Normal");
 	String valueSim = "Sim";
 	String valueNao = "Não";
@@ -28,6 +30,41 @@ public class ProdutoSupriController implements Initializable {
 
        snValidade.setValue(valueSim);
        snValidade.setItems(options);
+
+       snConigando.setValue("Normal");
+       snConigando.setItems(optionsConsig);
+
+       snMestre.setValue(valueNao);
+       snMestre.setItems(options);
+
+       snKIt.setValue(valueNao);
+       snKIt.setItems(options);
+
+       snEtiqueta.setValue(valueSim);
+       snEtiqueta.setItems(options);
+
+       snPadro.setValue(valueSim);
+       snPadro.setItems(options);
+
+       snMovimenta.setValue(valueSim);
+       snMovimenta.setItems(options);
+
+       snBloqueia.setValue(valueNao);
+       snBloqueia.setItems(options);
+
+       snGeraEtiq.setSelected(true);
+
+       snGeraEntrada.setSelected(true);
+
+       cdEspec.setText("1");
+       cdClass.setText("1");
+       cdSubClass.setText("1");
+
+       tpKit.setItems(optionsKit);
+       tpKit.setValue("Formula");
+
+       dsUnid.setText("AMP");
+
 	}
 
 

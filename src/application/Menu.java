@@ -77,6 +77,22 @@ public class Menu implements Initializable{
 	          }
 	}
 
+	public void goProdutoSupri(){
+		try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_produto_supri.fxml"));
+	        Parent root1 = (Parent) fxmlLoader.load();
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Produtos Suprimentos");
+	        stage.setResizable(false);
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.setScene(new Scene(root1));
+	        stage.show();
+	        } catch(Exception e) {
+	           e.printStackTrace();
+	          }
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

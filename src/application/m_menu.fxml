@@ -12,11 +12,14 @@
         <Menu mnemonicParsing="false" text="Ações">
           <items>
             <MenuItem mnemonicParsing="false" text="Novo"/>
-             <Menu mnemonicParsing="false" text="Criar" >
+             <Menu mnemonicParsing="false" text="Objetos de Dados" >
              <MenuItem mnemonicParsing="false" text="Coluna" />
              <MenuItem mnemonicParsing="false" text="Sequence" />
              <MenuItem mnemonicParsing="false" text="Tabela" />
             </Menu>
+             <Menu mnemonicParsing="false" text="Objetos de Teste" >
+             <MenuItem mnemonicParsing="false" text="Produtos Suprimentos" onAction="#goProdutoSupri"/>
+             </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Exportar" />
             <MenuItem mnemonicParsing="false" text="Save" />
