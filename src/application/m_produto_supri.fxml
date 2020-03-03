@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TextField fx:id="cdTicket" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="128.0" />
+            <Label layoutX="15.0" layoutY="11.0" prefHeight="17.0" prefWidth="128.0" text="Código do Ticket" />
+            <ChoiceBox fx:id="snLote" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="15.0" layoutY="65.0" prefHeight="17.0" prefWidth="128.0" text="Lote" />
+            <ChoiceBox fx:id="snValidade" layoutX="124.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="125.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Validade" />
+            <ChoiceBox fx:id="snConigando" layoutX="234.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="235.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Consignado" />
+            <ChoiceBox fx:id="snMestre" layoutX="345.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="346.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Mestre" />
+            <ChoiceBox fx:id="snKIt" layoutX="455.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="456.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Kit" />
+            <ChoiceBox fx:id="snEtiqueta" layoutX="565.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="566.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Etiqueta" />
+            <ChoiceBox fx:id="snPadro" layoutX="677.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="678.0" layoutY="65.0" prefHeight="17.0" prefWidth="100.0" text="Padronizado" />
+            <ChoiceBox fx:id="snBloqueia" layoutX="15.0" layoutY="130.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="16.0" layoutY="113.0" prefHeight="17.0" prefWidth="100.0" text="Bloqueia" />
+            <ChoiceBox fx:id="snMovimenta" layoutX="126.0" layoutY="131.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="127.0" layoutY="114.0" prefHeight="17.0" prefWidth="100.0" text="Movimenta" />
+            <CheckBox fx:id="snGeraEtiq" layoutX="235.0" layoutY="114.0" mnemonicParsing="false" text="Gerar Etiqueta Automaticamente" />
+            <CheckBox fx:id="snGeraEntrada" layoutX="235.0" layoutY="137.0" mnemonicParsing="false" text="Gerar Entrada Automaticamente" />
+            <TextField fx:id="qtSaldo" layoutX="569.0" layoutY="131.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="569.0" layoutY="114.0" prefHeight="17.0" prefWidth="100.0" text="Saldo" />
+            <TextField fx:id="cdEstoque" layoutX="677.0" layoutY="132.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="677.0" layoutY="115.0" prefHeight="17.0" prefWidth="100.0" text="Estoque" />
+            <TextField fx:id="cdProduto" disable="true" layoutX="153.0" layoutY="32.0" prefHeight="25.0" prefWidth="128.0" />
+            <Label layoutX="154.0" layoutY="11.0" prefHeight="17.0" prefWidth="128.0" text="Código do Produto" />
+            <TextField fx:id="dsProduto" disable="true" layoutX="291.0" layoutY="32.0" prefHeight="25.0" prefWidth="347.0" />
+            <Label layoutX="292.0" layoutY="11.0" prefHeight="17.0" prefWidth="203.0" text="Descrição" />
+            <TextField fx:id="cdEstiq" disable="true" layoutX="542.0" layoutY="187.0" prefHeight="25.0" prefWidth="110.0" />
+            <Label layoutX="543.0" layoutY="166.0" prefHeight="17.0" prefWidth="110.0" text="Etiqueta Gerada" />
+            <TextField fx:id="cdEntPro" disable="true" layoutX="659.0" layoutY="187.0" prefHeight="25.0" prefWidth="117.0" />
+            <Label layoutX="660.0" layoutY="166.0" prefHeight="17.0" prefWidth="117.0" text="Código da Entrada" />
+            <ChoiceBox fx:id="tpConexao" layoutX="648.0" layoutY="31.0" prefHeight="25.0" prefWidth="128.0" />
+            <Label layoutX="649.0" layoutY="14.0" prefHeight="17.0" prefWidth="128.0" text="Conexão" />
+            <TableView layoutX="16.0" layoutY="228.0" prefHeight="305.0" prefWidth="763.0">
+              <columns>
+                <TableColumn fx:id="tbcCdProduto" prefWidth="115.0" text=" Código" />
+                <TableColumn fx:id="tbcSnLote" prefWidth="83.0" text="Lote" />
+                  <TableColumn fx:id="tbcSnValidade" prefWidth="74.0" text="Validade" />
+                  <TableColumn fx:id="tbcSnConsig" prefWidth="86.0" text="Consig" />
+                  <TableColumn fx:id="tbcCdEspec" prefWidth="88.0" text="Espec." />
+                  <TableColumn fx:id="tbcCdClass" prefWidth="72.0" text="Clas" />
+                  <TableColumn fx:id="tbcCdSunClass" prefWidth="94.0" text="Sub" />
+                  <TableColumn fx:id="tbcCdEstoque" prefWidth="78.0" text="Estoque" />
+                  <TableColumn fx:id="tbcQtSaldo" prefWidth="72.0" text="Saldo" />
+              </columns>
+            </TableView>
+            <TextField fx:id="cdEspec" layoutX="17.0" layoutY="187.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="17.0" layoutY="166.0" prefHeight="17.0" prefWidth="100.0" text="Espec." />
+            <TextField fx:id="cdClass" layoutX="106.0" layoutY="187.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="106.0" layoutY="166.0" prefHeight="17.0" prefWidth="100.0" text="Class." />
+            <TextField fx:id="cdSubClass" layoutX="196.0" layoutY="187.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="196.0" layoutY="166.0" prefHeight="17.0" prefWidth="100.0" text="Sub. Clas" />
+            <Button layoutX="620.0" layoutY="538.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="69.0" text="Salvar" />
+            <Button layoutX="16.0" layoutY="538.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="79.0" text="Remover" />
+            <Button layoutX="104.0" layoutY="538.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="79.0" text="Limpar" />
+            <TextField fx:id="dsUnid" layoutX="445.0" layoutY="131.0" prefHeight="25.0" prefWidth="117.0" />
+            <Label layoutX="445.0" layoutY="114.0" prefHeight="17.0" prefWidth="117.0" text="Unid." />
+            <ChoiceBox fx:id="tpKit" layoutX="287.0" layoutY="187.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="288.0" layoutY="170.0" prefHeight="17.0" prefWidth="100.0" text="Tipo de Kit" />
+            <CheckBox fx:id="snComponente" layoutX="397.0" layoutY="170.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="100.0" text="Componente" />
+            <Button layoutX="699.0" layoutY="538.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="79.0" text="Confirmar" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
