@@ -24,7 +24,6 @@ public class DaoConexao implements Dao<Conexao> {
 		try {
 			con = ConexaoLite.getConnection();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +48,7 @@ public class DaoConexao implements Dao<Conexao> {
         	PreparedStatement pstmt = con.prepareStatement(comando);
         	pstmt.setString(1, t.getDsConexao());
         	pstmt.setString(2, t.getTpConexao());
-        	pstmt.setString(3, t.isCliente() ? "Sim":"Não");
+        	pstmt.setString(3, t.getSnCliente());
         	pstmt.setString(4, t.getDsUrl());
         	pstmt.setString(5, t.getDsPorta());
         	pstmt.setString(6, t.getDsSid());
@@ -75,7 +74,7 @@ public class DaoConexao implements Dao<Conexao> {
 			    pstmt.setString(1, condicao);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
-			    	retorno =  (new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE").equals("Sim"),rs.getString("SN_ATIVO")));
+			    	retorno =  (new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO")));
 			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -94,7 +93,7 @@ public class DaoConexao implements Dao<Conexao> {
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
-			    	retorno.add(new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE").equals("Sim"),rs.getString("SN_ATIVO")));
+			    	retorno.add(new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO")));
 			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -106,7 +105,7 @@ public class DaoConexao implements Dao<Conexao> {
 	public static void main(String[] args) {
 		Dao<Conexao> dao = new DaoConexao();
 		dao.criarTabela();
-		dao.salvar(new Conexao(null, "V_60D", "phoenix", "1521", "v60d", "TESTE", "dbamv", "dbamv", false, "Sim"));
+		dao.salvar(new Conexao(null, "V_60D", "phoenix", "1521", "v60d", "Executar", "dbamv", "dbamv", "Não", "Sim"));
 		for(Conexao conexao:dao.listar()){
             System.out.println(conexao);
 		}
@@ -114,19 +113,41 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void atualizar(Conexao t) {
-		// TODO Auto-generated method stub
-
+		String comando = "UPDATE CONEXAO SET DS_CONEXAO = ?,TP_CONEXAO = ?,SN_CLIENTE = ?,DS_URL = ? ,DS_PORTA= ?,DS_SID = ?,DS_USUARIO = ?,DS_SENHA = ?, SN_ATIVO = ? WHERE CD_CONEXAO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, t.getDsConexao());
+        	pstmt.setString(2, t.getTpConexao());
+        	pstmt.setString(3, t.getSnCliente());
+        	pstmt.setString(4, t.getDsUrl());
+        	pstmt.setString(5, t.getDsPorta());
+        	pstmt.setString(6, t.getDsSid());
+        	pstmt.setString(7, t.getDsUsuario());
+        	pstmt.setString(8, t.getDsSenha());
+        	pstmt.setString(9, t.getSnAtivo());
+        	pstmt.setLong(10, t.getCdConexao().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void remover(Conexao t) {
-		// TODO Auto-generated method stub
-
+		String comando = "DELETE FROM CONEXAO WHERE CD_CONEXAO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setLong(1, t.getCdConexao().longValue());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public boolean validaPadrao(Conexao t) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

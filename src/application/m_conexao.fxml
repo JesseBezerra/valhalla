@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ConexaoController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -59,7 +58,7 @@
          <children>
             <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" text="Código" />
             <Label layoutX="90.0" layoutY="14.0" prefHeight="17.0" prefWidth="271.0" text="Descrição" />
-            <TextField fx:id="cdConexao" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="cdConexao" disable="true" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="68.0" />
             <TextField fx:id="dsConexao" layoutX="89.0" layoutY="32.0" prefHeight="25.0" prefWidth="301.0" />
             <Label layoutX="14.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="URL" />
             <TextField fx:id="dsUrl" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="375.0" />
@@ -73,19 +72,21 @@
             <TextField fx:id="dsUsuario" layoutX="14.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
             <Label layoutX="243.0" layoutY="114.0" prefHeight="17.0" prefWidth="132.0" text="Senha" />
             <TextField fx:id="dsSenha" layoutX="243.0" layoutY="134.0" prefHeight="25.0" prefWidth="218.0" />
-            <CheckBox fx:id="isCliente" alignment="BOTTOM_LEFT" layoutX="545.0" layoutY="34.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" text="Cliente" />
-            <TreeTableView layoutX="14.0" layoutY="170.0" prefHeight="360.0" prefWidth="615.0">
-              <columns>
-                <TreeTableColumn prefWidth="285.0" text="Descrição" />
-                <TreeTableColumn prefWidth="268.0" text="Tp. Utilização" />
-                  <TreeTableColumn prefWidth="61.0" text="Cliente" />
-              </columns>
-            </TreeTableView>
-            <Button fx:id="btnRemover" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" text="Remover" />
-            <Button fx:id="btnRemover1" layoutX="88.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Limpar" />
-            <Button fx:id="btnRemover11" layoutX="562.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Salvar" />
+            <Button fx:id="btnRemover" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#remover" text="Remover" />
+            <Button layoutX="88.0" layoutY="536.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="64.0" text="Limpar" />
+            <Button layoutX="562.0" layoutY="536.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="64.0" text="Salvar" />
             <Label layoutX="475.0" layoutY="114.0" prefHeight="17.0" prefWidth="87.0" text="Ativo" />
             <ChoiceBox fx:id="snAtivo" layoutX="473.0" layoutY="134.0" prefHeight="25.0" prefWidth="111.0" />
+            <TableView fx:id="grdConexao" layoutX="14.0" layoutY="175.0" prefHeight="348.0" prefWidth="615.0">
+              <columns>
+                <TableColumn fx:id="tbcCdConexao" prefWidth="94.0" text="Código" />
+                <TableColumn fx:id="tbcDsConexao" prefWidth="250.0" text="Descrição" />
+                  <TableColumn fx:id="tbcTpUtilizacao" prefWidth="183.0" text="Tipo de Utilização" />
+                  <TableColumn fx:id="tbcSnCliente" prefWidth="94.0" text="Cliente" />
+              </columns>
+            </TableView>
+            <Label layoutX="541.0" layoutY="16.0" prefHeight="17.0" prefWidth="91.0" text="Cliente" />
+            <ChoiceBox fx:id="snCliente" layoutX="541.0" layoutY="33.0" prefHeight="25.0" prefWidth="87.0" />
          </children>
     </AnchorPane>
   </children>

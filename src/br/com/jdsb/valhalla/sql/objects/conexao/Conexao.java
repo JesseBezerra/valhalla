@@ -26,7 +26,7 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 
     private String dsSenha;
 
-    private boolean isCliente;
+    private String snCliente;
 
     private String snAtivo;
 
@@ -100,13 +100,6 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		this.dsSenha = dsSenha;
 	}
 
-	public boolean isCliente() {
-		return isCliente;
-	}
-
-	public void setCliente(boolean isCliente) {
-		this.isCliente = isCliente;
-	}
 
 	public String getSnAtivo() {
 		return snAtivo;
@@ -114,6 +107,18 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 
 	public void setSnAtivo(String snAtivo) {
 		this.snAtivo = snAtivo;
+	}
+
+    public String getSnCliente() {
+		return snCliente;
+	}
+
+	public void setSnCliente(String snCliente) {
+		this.snCliente = snCliente;
+	}
+
+	public Conexao() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -127,8 +132,8 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		result = prime * result + ((dsSid == null) ? 0 : dsSid.hashCode());
 		result = prime * result + ((dsUrl == null) ? 0 : dsUrl.hashCode());
 		result = prime * result + ((dsUsuario == null) ? 0 : dsUsuario.hashCode());
-		result = prime * result + (isCliente ? 1231 : 1237);
 		result = prime * result + ((snAtivo == null) ? 0 : snAtivo.hashCode());
+		result = prime * result + ((snCliente == null) ? 0 : snCliente.hashCode());
 		result = prime * result + ((tpConexao == null) ? 0 : tpConexao.hashCode());
 		return result;
 	}
@@ -177,12 +182,15 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 				return false;
 		} else if (!dsUsuario.equals(other.dsUsuario))
 			return false;
-		if (isCliente != other.isCliente)
-			return false;
 		if (snAtivo == null) {
 			if (other.snAtivo != null)
 				return false;
 		} else if (!snAtivo.equals(other.snAtivo))
+			return false;
+		if (snCliente == null) {
+			if (other.snCliente != null)
+				return false;
+		} else if (!snCliente.equals(other.snCliente))
 			return false;
 		if (tpConexao == null) {
 			if (other.tpConexao != null)
@@ -192,19 +200,8 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Conexao [cdConexao=" + cdConexao + ", dsConexao=" + dsConexao + ", dsUrl=" + dsUrl + ", dsPorta="
-				+ dsPorta + ", dsSid=" + dsSid + ", tpConexao=" + tpConexao + ", dsUsuario=" + dsUsuario + ", dsSenha="
-				+ dsSenha + ", isCliente=" + isCliente + ", snAtivo=" + snAtivo + "]";
-	}
-
-    public Conexao() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public Conexao(BigInteger cdConexao, String dsConexao, String dsUrl, String dsPorta, String dsSid, String tpConexao,
-			String dsUsuario, String dsSenha, boolean isCliente, String snAtivo) {
+			String dsUsuario, String dsSenha, String snCliente, String snAtivo) {
 		super();
 		this.cdConexao = cdConexao;
 		this.dsConexao = dsConexao;
@@ -214,9 +211,10 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		this.tpConexao = tpConexao;
 		this.dsUsuario = dsUsuario;
 		this.dsSenha = dsSenha;
-		this.isCliente = isCliente;
+		this.snCliente = snCliente;
 		this.snAtivo = snAtivo;
 	}
+
 
 
 

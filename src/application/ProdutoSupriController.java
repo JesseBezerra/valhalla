@@ -3,6 +3,9 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.jdsb.valhalla.sql.core.dao.Dao;
+import br.com.jdsb.valhalla.sql.core.dao.conexao.DaoConexao;
+import br.com.jdsb.valhalla.sql.objects.conexao.Conexao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,14 +21,20 @@ public class ProdutoSupriController implements Initializable {
 	ObservableList<String> options = FXCollections.observableArrayList("Sim","Não");
 	ObservableList<String> optionsKit = FXCollections.observableArrayList("Formula","Produção");
 
+	ObservableList<String> optionsConexao = FXCollections.observableArrayList();
+
 	ObservableList<String> optionsConsig = FXCollections.observableArrayList("Consignado","Reprocessado","Normal");
 	String valueSim = "Sim";
 	String valueNao = "Não";
 
+	Dao<Conexao> dao;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-       snLote.setValue(valueSim);
+
+	   dao = new DaoConexao();
+
+	   snLote.setValue(valueSim);
        snLote.setItems(options);
 
        snValidade.setValue(valueSim);
@@ -64,6 +73,8 @@ public class ProdutoSupriController implements Initializable {
        tpKit.setValue("Formula");
 
        dsUnid.setText("AMP");
+
+       carregarConexoes();
 
 	}
 
@@ -187,6 +198,13 @@ public class ProdutoSupriController implements Initializable {
 	@FXML
 	void salvar(ActionEvent event) {
 
+	}
+
+	public void carregarConexoes(){
+		for(Conexao conexao:dao.listar()){
+			optionsConexao.add(conexao.getDsConexao());
+		}
+		tpConexao.setItems(optionsConexao);
 	}
 
 }
