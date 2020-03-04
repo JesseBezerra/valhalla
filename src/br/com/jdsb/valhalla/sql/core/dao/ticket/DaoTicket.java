@@ -1,4 +1,4 @@
-package br.com.jdsb.valhalla.sql.core.dao;
+package br.com.jdsb.valhalla.sql.core.dao.ticket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
+import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.objects.ticket.Ticket;
 
 public class DaoTicket implements Dao<Ticket> {

@@ -1,4 +1,4 @@
-package br.com.jdsb.valhalla.sql.core.dao;
+package br.com.jdsb.valhalla.sql.core.dao.produtosupri;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
+import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.objects.produtosupri.ProdutoSupri;
 
 public class DaoProdutoSupri implements Dao<ProdutoSupri> {
