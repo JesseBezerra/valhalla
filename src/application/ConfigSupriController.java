@@ -8,6 +8,7 @@ import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.conexao.DaoConexao;
 import br.com.jdsb.valhalla.sql.core.dao.consultas.Consultas;
 import br.com.jdsb.valhalla.sql.objects.conexao.Conexao;
+import br.com.jdsb.valhalla.sql.objects.configsupri.ConfigSupri;
 import br.com.jdsb.valhalla.sql.objects.estoque.Estoque;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -80,13 +81,25 @@ public class ConfigSupriController implements Initializable {
 	private TableColumn<Estoque, String> tbcDsEstoque;
 
 	@FXML
+	private TextField cdConfigSupri;
+
+	@FXML
 	private TextField cdEspec;
+
+	@FXML
+	private TextField dsEspec;
 
 	@FXML
 	private TextField cdClass;
 
 	@FXML
+	private TextField dsClasse;
+
+	@FXML
 	private TextField cdSubClass;
+
+	@FXML
+	private TextField dsSubClasse;
 
 	@FXML
 	private TextField qtSaldoPadrao;
@@ -106,6 +119,17 @@ public class ConfigSupriController implements Initializable {
 
 	@FXML
 	void salvar(ActionEvent event) {
+        ConfigSupri configSupri = new ConfigSupri();
+        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[1]);
+        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[1]);
+        configSupri.setCdConexao(conexao.getCdConexao());
+
+	}
+
+	public void addEstoque(){
+	}
+
+	public void rmEstoque(){
 
 	}
 

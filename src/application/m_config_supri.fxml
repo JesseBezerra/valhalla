@@ -56,10 +56,10 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <ChoiceBox fx:id="tpConexao" layoutX="21.0" layoutY="34.0" prefWidth="150.0" />
-            <Label layoutX="21.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Conexao" />
-            <ChoiceBox fx:id="cdMultiEmpresa" layoutX="183.0" layoutY="34.0" prefHeight="25.0" prefWidth="381.0" />
-            <Label layoutX="183.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Empresa" />
+            <ChoiceBox fx:id="tpConexao" layoutX="177.0" layoutY="34.0" prefWidth="150.0" />
+            <Label layoutX="177.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Conexao" />
+            <ChoiceBox fx:id="cdMultiEmpresa" layoutX="339.0" layoutY="34.0" prefHeight="25.0" prefWidth="440.0" />
+            <Label layoutX="339.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Empresa" />
             <ChoiceBox fx:id="cdEstoque" layoutX="20.0" layoutY="88.0" prefHeight="25.0" prefWidth="306.0" />
             <Label layoutX="21.0" layoutY="68.0" prefHeight="17.0" prefWidth="92.0" text="Estoque Padrão" />
             <Button layoutX="336.0" layoutY="88.0" mnemonicParsing="false" onAction="#addEstoque" text="+" textFill="#1245e1" wrapText="true" />
@@ -70,12 +70,12 @@
                 <TableColumn fx:id="tbcDsEstoque" prefWidth="230.0" text="Descrição" />
               </columns>
             </TableView>
-            <Label layoutX="573.0" layoutY="14.0" prefHeight="17.0" prefWidth="49.0" text="Espec." />
-            <TextField fx:id="cdEspec" layoutX="573.0" layoutY="34.0" prefHeight="25.0" prefWidth="60.0" />
-            <Label layoutX="641.0" layoutY="14.0" prefHeight="17.0" prefWidth="49.0" text="Class." />
-            <TextField fx:id="cdClass" layoutX="641.0" layoutY="34.0" prefHeight="25.0" prefWidth="60.0" />
-            <Label layoutX="711.0" layoutY="14.0" prefHeight="17.0" prefWidth="49.0" text="Sub. C" />
-            <TextField fx:id="cdSubClass" layoutX="711.0" layoutY="34.0" prefHeight="25.0" prefWidth="60.0" />
+            <Label layoutX="341.0" layoutY="122.0" prefHeight="17.0" prefWidth="49.0" text="Espec." />
+            <TextField fx:id="cdEspec" layoutX="341.0" layoutY="142.0" prefHeight="25.0" prefWidth="69.0" />
+            <Label layoutX="341.0" layoutY="167.0" prefHeight="17.0" prefWidth="49.0" text="Class." />
+            <TextField fx:id="cdClass" layoutX="341.0" layoutY="187.0" prefHeight="25.0" prefWidth="69.0" />
+            <Label layoutX="341.0" layoutY="214.0" prefHeight="17.0" prefWidth="49.0" text="Sub. C" />
+            <TextField fx:id="cdSubClass" layoutX="341.0" layoutY="234.0" prefHeight="25.0" prefWidth="69.0" />
             <Button layoutX="707.0" layoutY="529.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="69.0" text="Salvar" />
             <Button layoutX="113.0" layoutY="529.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="79.0" text="Remover" />
             <Button layoutX="21.0" layoutY="529.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="79.0" text="Limpar" />
@@ -83,6 +83,11 @@
             <TextField fx:id="qtSaldoPadrao" layoutX="413.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
             <Label layoutX="522.0" layoutY="68.0" prefHeight="17.0" prefWidth="100.0" text="Unidade Padrão" />
             <TextField fx:id="dsUnidadePadrao" layoutX="522.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
+            <TextField fx:id="dsEspec" layoutX="418.0" layoutY="142.0" prefHeight="25.0" prefWidth="360.0" />
+            <TextField fx:id="dsClasse" layoutX="418.0" layoutY="187.0" prefHeight="25.0" prefWidth="360.0" />
+            <TextField fx:id="dsSubClasse" layoutX="418.0" layoutY="234.0" prefHeight="25.0" prefWidth="360.0" />
+            <TextField fx:id="cdConfigSupri" layoutX="23.0" layoutY="34.0" prefHeight="25.0" prefWidth="144.0" />
+            <Label layoutX="23.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Código" />
          </children>
     </AnchorPane>
   </children>

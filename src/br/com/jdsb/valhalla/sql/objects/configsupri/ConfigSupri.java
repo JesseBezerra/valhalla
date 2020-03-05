@@ -185,7 +185,9 @@ public class ConfigSupri implements Comparable<ConfigSupri>, Serializable {
 		this.dsUnidadePadrao = dsUnidadePadrao;
 	}
 
-
+   public ConfigSupri() {
+	// TODO Auto-generated constructor stub
+   }
 
 
 
