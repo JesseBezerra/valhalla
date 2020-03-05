@@ -18,6 +18,13 @@ public class Estoque implements Serializable, Comparable<Estoque> {
 	private String cdEstoque;
 	private String dsEstoque;
 	private String cdConfigSupri;
+	
+	/**
+	 * CD_ESTOQUE,
+	 * DS_ESTOQUE,
+	 * CD_CONFIG_SUPRI
+	 * @return
+	 */
 
 	public String getCdEstoque() {
 		return cdEstoque;

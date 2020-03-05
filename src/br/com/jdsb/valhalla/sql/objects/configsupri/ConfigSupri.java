@@ -25,6 +25,18 @@ public class ConfigSupri implements Comparable<ConfigSupri>, Serializable {
 	private String cdSubClass;
 	private String qtSaldoPadrao;
 	private String dsUnidadePadrao;
+	/**
+	 * CD_CONFIG_SUPRUI
+	 * CD_CONEXAO
+	 * CD_MULTRI_EMPRESA S
+	 * CD_ESTOQUE S
+	 * CD_ESPEC S
+	 * CD_CLASSE S
+	 * CD_SUB_CLASS S
+	 * QT_SALDO_PADRAO
+	 * DS_UNIDADE_PADRAO
+	 * @return
+	 */
 
 	public BigInteger getCdConfigSupri() {
 		return cdConfigSupri;
@@ -159,17 +171,19 @@ public class ConfigSupri implements Comparable<ConfigSupri>, Serializable {
 				+ dsUnidadePadrao + "]";
 	}
 
-	/**
-	 * CD_CONFIG_SUPRI
-	 * CD_CONEXAO
-	 * CD_MULTI_EMPRESA
-	 * CD_ESTOQUE
-	 * CD_ESPEC
-	 * CD_CLASS
-	 * CD_SUB_CLASS
-	 * QT_SALDO_PADRAO
-	 * DS_UNIDADE_PADRAO
-	 */
+	public ConfigSupri(BigInteger cdConfigSupri, BigInteger cdConexao, String cdMultiEmpresa, String cdEstoque,
+			String cdEspec, String cdClass, String cdSubClass, String qtSaldoPadrao, String dsUnidadePadrao) {
+		super();
+		this.cdConfigSupri = cdConfigSupri;
+		this.cdConexao = cdConexao;
+		this.cdMultiEmpresa = cdMultiEmpresa;
+		this.cdEstoque = cdEstoque;
+		this.cdEspec = cdEspec;
+		this.cdClass = cdClass;
+		this.cdSubClass = cdSubClass;
+		this.qtSaldoPadrao = qtSaldoPadrao;
+		this.dsUnidadePadrao = dsUnidadePadrao;
+	}
 
 
 

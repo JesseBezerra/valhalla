@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.jdsb.valhalla.sql.core.connection.Conexao;
+import br.com.jdsb.valhalla.sql.core.connection.ConnectionSystem;
 import br.com.jdsb.valhalla.sql.core.texto.StringUtil;
 import br.com.jdsb.valhalla.sql.core.writer.Arquivo;
 
@@ -48,7 +48,7 @@ public class Comum {
 							"	AND ACC.TABLE_NAME = AC.TABLE_NAME                      "+
 							"	AND AC.STATUS = 'ENABLED'                               "+
 							"	AND ACC.CONSTRAINT_NAME NOT LIKE 'SYS%'                 ";
-		   Connection con = Conexao.getConnectio();
+		   Connection con = ConnectionSystem.getConnectio();
 	       PreparedStatement pstmt = con.prepareStatement(consulta);
 	       pstmt.setString(1, coluna);
 	       pstmt.setString(2, tabela);
@@ -76,7 +76,7 @@ public class Comum {
 						   "		WHERE COLUMN_NAME = ?                                 "+
 						   "		AND TABLE_NAME=?                                      "+
 						   "		AND OWNER = ?                                         ";
-		   Connection con = Conexao.getConnectio();
+		   Connection con = ConnectionSystem.getConnectio();
 	       PreparedStatement pstmt = con.prepareStatement(consulta);
 	       pstmt.setString(1, coluna);
 	       pstmt.setString(2, tabela);
@@ -105,7 +105,7 @@ public class Comum {
 						 " WHERE COLUMN_NAME = ?                          "+
 						 " AND TABLE_NAME= ?                              "+
 						 " AND OWNER = ?      	                          ";
-       Connection con = Conexao.getConnectio();
+       Connection con = ConnectionSystem.getConnectio();
        PreparedStatement pstmt = con.prepareStatement(consulta);
        pstmt.setString(1, coluna);
        pstmt.setString(2, tabela);
