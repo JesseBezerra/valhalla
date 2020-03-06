@@ -29,6 +29,8 @@ public class ConfigSupriController implements Initializable {
 	ObservableList<String> optionsEstoques = FXCollections.observableArrayList();
 	Dao<Conexao> dao;
 	private Conexao conexao;
+	private Estoque estoque;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -57,7 +59,21 @@ public class ConfigSupriController implements Initializable {
                 String dsMultiEmpresa = optionsEmpresa.get(new_value.intValue());
                 String[] cdMultiEmpresa = dsMultiEmpresa.split("-");
                 Consultas consultas = new Consultas();
-                carregarEstoques(consultas.listarEstoques(conexao,cdMultiEmpresa[1]));
+                carregarEstoques(consultas.listarEstoques(conexao,cdMultiEmpresa[0]));
+            }
+        });
+
+		this.cdEstoque.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+            // if the item of the list is changed
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+
+                String dsEstoque = optionsEstoques.get(new_value.intValue());
+                String[] campoEstoque = dsEstoque.split("-");
+                estoque = new Estoque();
+                estoque.setCdEstoque(campoEstoque[0]);
+                estoque.setDsEstoque(campoEstoque[1]);
             }
         });
 	}
@@ -127,6 +143,10 @@ public class ConfigSupriController implements Initializable {
 	}
 
 	public void addEstoque(){
+		if(cdConfigSupri!=null){
+
+		}
+
 	}
 
 	public void rmEstoque(){

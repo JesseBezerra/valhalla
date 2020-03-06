@@ -30,6 +30,8 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 
     private String snAtivo;
 
+    private String snService;
+
 	@Override
 	public int compareTo(Conexao arg0) {
 		// TODO Auto-generated method stub
@@ -121,6 +123,14 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getSnService() {
+		return snService;
+	}
+
+	public void setSnService(String snService) {
+		this.snService = snService;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -134,6 +144,7 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		result = prime * result + ((dsUsuario == null) ? 0 : dsUsuario.hashCode());
 		result = prime * result + ((snAtivo == null) ? 0 : snAtivo.hashCode());
 		result = prime * result + ((snCliente == null) ? 0 : snCliente.hashCode());
+		result = prime * result + ((snService == null) ? 0 : snService.hashCode());
 		result = prime * result + ((tpConexao == null) ? 0 : tpConexao.hashCode());
 		return result;
 	}
@@ -192,6 +203,11 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 				return false;
 		} else if (!snCliente.equals(other.snCliente))
 			return false;
+		if (snService == null) {
+			if (other.snService != null)
+				return false;
+		} else if (!snService.equals(other.snService))
+			return false;
 		if (tpConexao == null) {
 			if (other.tpConexao != null)
 				return false;
@@ -201,7 +217,7 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 	}
 
 	public Conexao(BigInteger cdConexao, String dsConexao, String dsUrl, String dsPorta, String dsSid, String tpConexao,
-			String dsUsuario, String dsSenha, String snCliente, String snAtivo) {
+			String dsUsuario, String dsSenha, String snCliente, String snAtivo, String snService) {
 		super();
 		this.cdConexao = cdConexao;
 		this.dsConexao = dsConexao;
@@ -213,7 +229,10 @@ public class Conexao implements Serializable, Comparable<Conexao> {
 		this.dsSenha = dsSenha;
 		this.snCliente = snCliente;
 		this.snAtivo = snAtivo;
+		this.snService = snService;
 	}
+
+
 
 
 

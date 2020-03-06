@@ -30,7 +30,7 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void criarTabela() {
-		String comando = "CREATE TABLE IF NOT EXISTS CONEXAO(CD_CONEXAO INTEGER PRIMARY KEY AUTOINCREMENT, DS_CONEXAO VARCHAR,TP_CONEXAO VARCHAR,SN_CLIENTE VARCHAR,DS_URL VARCHAR,DS_PORTA VARCHAR,DS_SID VARCHAR,DS_USUARIO VARCHAR,DS_SENHA VARCHAR, SN_ATIVO VARCHAR)";
+		String comando = "CREATE TABLE IF NOT EXISTS CONEXAO(CD_CONEXAO INTEGER PRIMARY KEY AUTOINCREMENT, DS_CONEXAO VARCHAR,TP_CONEXAO VARCHAR,SN_CLIENTE VARCHAR,DS_URL VARCHAR,DS_PORTA VARCHAR,DS_SID VARCHAR,DS_USUARIO VARCHAR,DS_SENHA VARCHAR, SN_ATIVO VARCHAR, SN_SERVICE VARCHAR)";
         try {
         	PreparedStatement pstmt = con.prepareStatement(comando);
 			pstmt.execute();
@@ -43,7 +43,7 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void salvar(Conexao t) {
-		String comando = "INSERT INTO CONEXAO(DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO) VALUES (?,?,?,?,?,?,?,?,?)";
+		String comando = "INSERT INTO CONEXAO(DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO, SN_SERVICE) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		try {
         	PreparedStatement pstmt = con.prepareStatement(comando);
         	pstmt.setString(1, t.getDsConexao());
@@ -55,6 +55,7 @@ public class DaoConexao implements Dao<Conexao> {
         	pstmt.setString(7, t.getDsUsuario());
         	pstmt.setString(8, t.getDsSenha());
         	pstmt.setString(9, t.getSnAtivo());
+        	pstmt.setString(10, t.getSnService());
 			pstmt.execute();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -67,14 +68,14 @@ public class DaoConexao implements Dao<Conexao> {
 	public Conexao consultar(String condicao) {
 		Conexao retorno = null ;
 
-	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO FROM CONEXAO WHERE DS_CONEXAO = ?  ";
+	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO,SN_SERVICE FROM CONEXAO WHERE DS_CONEXAO = ?  ";
 	      try {
 				Connection connection = ConexaoLite.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    pstmt.setString(1, condicao);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
-			    	retorno =  (new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO")));
+			    	retorno =  (new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO"),rs.getString("SN_SERVICE")));
 			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -87,13 +88,13 @@ public class DaoConexao implements Dao<Conexao> {
 	public List<Conexao> listar() {
 		 List<Conexao> retorno = new ArrayList<Conexao>();
 
-	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO FROM CONEXAO ";
+	      String consulta = "SELECT CD_CONEXAO,DS_CONEXAO,TP_CONEXAO,SN_CLIENTE,DS_URL,DS_PORTA,DS_SID,DS_USUARIO,DS_SENHA, SN_ATIVO,SN_SERVICE FROM CONEXAO ";
 	      try {
 				Connection connection = ConexaoLite.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
-			    	retorno.add(new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO")));
+			    	retorno.add(new Conexao(BigInteger.valueOf(rs.getInt("CD_CONEXAO")), rs.getString("DS_CONEXAO"), rs.getString("DS_URL"), rs.getString("DS_PORTA"),rs.getString("DS_SID"), rs.getString("TP_CONEXAO"), rs.getString("DS_USUARIO"), rs.getString("DS_SENHA"), rs.getString("SN_CLIENTE"),rs.getString("SN_ATIVO"),rs.getString("SN_SERVICE")));
 			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -105,7 +106,7 @@ public class DaoConexao implements Dao<Conexao> {
 	public static void main(String[] args) {
 		Dao<Conexao> dao = new DaoConexao();
 		dao.criarTabela();
-		dao.salvar(new Conexao(null, "V_60D", "phoenix", "1521", "v60d", "Executar", "dbamv", "dbamv", "Não", "Sim"));
+		dao.salvar(new Conexao(null, "V_60D", "phoenix", "1521", "v60d", "Executar", "dbamv", "dbamv", "Não", "Sim","Não"));
 		for(Conexao conexao:dao.listar()){
             System.out.println(conexao);
 		}
@@ -113,7 +114,7 @@ public class DaoConexao implements Dao<Conexao> {
 
 	@Override
 	public void atualizar(Conexao t) {
-		String comando = "UPDATE CONEXAO SET DS_CONEXAO = ?,TP_CONEXAO = ?,SN_CLIENTE = ?,DS_URL = ? ,DS_PORTA= ?,DS_SID = ?,DS_USUARIO = ?,DS_SENHA = ?, SN_ATIVO = ? WHERE CD_CONEXAO = ? ";
+		String comando = "UPDATE CONEXAO SET DS_CONEXAO = ?,TP_CONEXAO = ?,SN_CLIENTE = ?,DS_URL = ? ,DS_PORTA= ?,DS_SID = ?,DS_USUARIO = ?,DS_SENHA = ?, SN_ATIVO = ?, SN_SERVICE=? WHERE CD_CONEXAO = ? ";
         try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
@@ -126,7 +127,8 @@ public class DaoConexao implements Dao<Conexao> {
         	pstmt.setString(7, t.getDsUsuario());
         	pstmt.setString(8, t.getDsSenha());
         	pstmt.setString(9, t.getSnAtivo());
-        	pstmt.setLong(10, t.getCdConexao().longValue());
+        	pstmt.setString(10, t.getSnService());
+        	pstmt.setLong(11, t.getCdConexao().longValue());
 		    pstmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

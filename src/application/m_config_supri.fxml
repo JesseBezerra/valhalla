@@ -86,7 +86,7 @@
             <TextField fx:id="dsEspec" layoutX="418.0" layoutY="142.0" prefHeight="25.0" prefWidth="360.0" />
             <TextField fx:id="dsClasse" layoutX="418.0" layoutY="187.0" prefHeight="25.0" prefWidth="360.0" />
             <TextField fx:id="dsSubClasse" layoutX="418.0" layoutY="234.0" prefHeight="25.0" prefWidth="360.0" />
-            <TextField fx:id="cdConfigSupri" layoutX="23.0" layoutY="34.0" prefHeight="25.0" prefWidth="144.0" />
+            <TextField fx:id="cdConfigSupri" disable="true" layoutX="23.0" layoutY="34.0" prefHeight="25.0" prefWidth="144.0" />
             <Label layoutX="23.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Código" />
          </children>
     </AnchorPane>

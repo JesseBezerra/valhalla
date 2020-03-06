@@ -37,6 +37,9 @@ public class ConexaoController implements Initializable {
 		snCliente.setItems(optionSnAtivo);
 		snCliente.setValue("Não");
 
+		snService.setItems(optionSnAtivo);
+		snService.setValue("Não");
+
 		carregarDados();
 
 		grdConexao.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -52,6 +55,7 @@ public class ConexaoController implements Initializable {
 		    	tpConexao.setValue(conexao.getTpConexao());
 		    	dsUrl.setText(conexao.getDsUrl());
 		    	dsUsuario.setText(conexao.getDsUsuario());
+		    	snService.setValue(conexao.getSnService());
 		    }
 		});
 	}
@@ -99,6 +103,9 @@ public class ConexaoController implements Initializable {
     private ChoiceBox<String> snCliente;
 
     @FXML
+    private ChoiceBox<String> snService;
+
+    @FXML
     private TextField dsUsuario;
 
     @FXML
@@ -135,6 +142,7 @@ public class ConexaoController implements Initializable {
     	snAtivo.setValue("Sim");
     	snCliente.setValue("Não");
     	tpConexao.setValue("Executar");
+    	snService.setValue("Não");
     }
 
     @FXML
@@ -172,6 +180,7 @@ public class ConexaoController implements Initializable {
      conexao.setDsUsuario(dsUsuario.getText());
      conexao.setSnAtivo(snAtivo.getValue());
      conexao.setTpConexao(tpConexao.getValue());
+     conexao.setSnService(snService.getValue());
      if(cdConexao.getText()==null || cdConexao.getText().isEmpty()){
     	 dao.salvar(conexao);
      }else{

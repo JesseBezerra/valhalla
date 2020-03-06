@@ -18,9 +18,12 @@ public class ConnectionSystem {
 
 	private static Connection connectionService;
 
-	public static Connection getConnection(String host, String porta, String sid, String usuario, String senha) throws SQLException{
+	public static Connection getConnection(String host, String porta, String sid, String usuario, String senha,String snService) throws SQLException{
 	      if(connectionService==null || connectionService.isClosed()){
 	    	  String url = "jdbc:oracle:thin:@%s:%s:%s";
+	    	  if(snService!=null && snService.equals("Sim")){
+	    		  url = "jdbc:oracle:thin:@%s:%s/%s";
+	    	  }
 	    	  connectionService = DriverManager.getConnection(String.format(url, host,porta,sid), usuario, senha);
 	      }
 	      return connectionService;

@@ -17,7 +17,7 @@ public class Consultas {
 
 	      String consulta = "SELECT CD_MULTI_EMPRESA || ' - ' || DS_MULTI_EMPRESA AS DS_MULTI_EMPRESA FROM DBAMV.MULTI_EMPRESAS ORDER BY CD_MULTI_EMPRESA";
 	      try {
-				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha());
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
@@ -37,7 +37,7 @@ public class Consultas {
 
 	      String consulta = "SELECT CD_ESTOQUE || ' - ' || DS_ESTOQUE AS DS_ESTOQUE FROM DBAMV.ESTOQUE WHERE CD_MULTI_EMPRESA = ? ORDER BY CD_ESTOQUE";
 	      try {
-				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha());
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    pstmt.setString(1, cdMultiEmpresa);
 			    ResultSet rs = pstmt.executeQuery();

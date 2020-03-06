@@ -61,11 +61,11 @@
             <TextField fx:id="cdConexao" disable="true" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="68.0" />
             <TextField fx:id="dsConexao" layoutX="89.0" layoutY="32.0" prefHeight="25.0" prefWidth="301.0" />
             <Label layoutX="14.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="URL" />
-            <TextField fx:id="dsUrl" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="375.0" />
-            <Label layoutX="398.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="Porta" />
-            <TextField fx:id="dsPorta" layoutX="398.0" layoutY="81.0" prefHeight="25.0" prefWidth="68.0" />
-            <Label layoutX="477.0" layoutY="63.0" prefHeight="17.0" prefWidth="91.0" text="Sid/Service" />
-            <TextField fx:id="dsSid" layoutX="477.0" layoutY="81.0" prefHeight="25.0" prefWidth="152.0" />
+            <TextField fx:id="dsUrl" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="301.0" />
+            <Label layoutX="322.0" layoutY="63.0" prefHeight="17.0" prefWidth="68.0" text="Porta" />
+            <TextField fx:id="dsPorta" layoutX="322.0" layoutY="81.0" prefHeight="25.0" prefWidth="68.0" />
+            <Label layoutX="401.0" layoutY="63.0" prefHeight="17.0" prefWidth="91.0" text="Sid/Service" />
+            <TextField fx:id="dsSid" layoutX="400.0" layoutY="81.0" prefHeight="25.0" prefWidth="132.0" />
             <Label layoutX="400.0" layoutY="15.0" prefHeight="17.0" prefWidth="132.0" text="Tipo de Utilização" />
             <ChoiceBox fx:id="tpConexao" layoutX="400.0" layoutY="32.0" prefHeight="25.0" prefWidth="132.0" />
             <Label layoutX="14.0" layoutY="114.0" prefHeight="17.0" prefWidth="132.0" text="Usuário" />
@@ -87,6 +87,8 @@
             </TableView>
             <Label layoutX="541.0" layoutY="16.0" prefHeight="17.0" prefWidth="91.0" text="Cliente" />
             <ChoiceBox fx:id="snCliente" layoutX="541.0" layoutY="33.0" prefHeight="25.0" prefWidth="87.0" />
+            <Label layoutX="541.0" layoutY="64.0" prefHeight="17.0" prefWidth="91.0" text="Service" />
+            <ChoiceBox fx:id="snService" layoutX="541.0" layoutY="81.0" prefHeight="25.0" prefWidth="87.0" />
          </children>
     </AnchorPane>
   </children>
