@@ -69,7 +69,7 @@ public class DaoConfigSupri implements Dao<ConfigSupri> {
 	public ConfigSupri consultar(String condicao) {
 		ConfigSupri retorno = null;
 
-	      String consulta = "SELECT CD_CONFIG_SUPRI,CD_CONEXAO,CD_MULTI_EMPRESA,CD_ESTOQUE,CD_ESPECIE,CD_CLASSE,CD_SUB_CLASSE,QT_SALDO_PADRAO,DS_UNIDADE_PADRAO FROM CONFIG_SUPRI WHERE CD_CONFIG_SUPRI = ?";
+	      String consulta = "SELECT CD_CONFIG_SUPRI,CD_CONEXAO,CD_MULTI_EMPRESA,CD_ESTOQUE,CD_ESPECIE,CD_CLASSE,CD_SUB_CLASSE,QT_SALDO_PADRAO,DS_UNIDADE_PADRAO FROM CONFIG_SUPRI WHERE CD_CONEXAO = ?";
 	      try {
 				Connection connection = ConexaoLite.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);

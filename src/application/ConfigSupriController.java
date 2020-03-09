@@ -1,12 +1,15 @@
 package application;
 
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.conexao.DaoConexao;
+import br.com.jdsb.valhalla.sql.core.dao.configsupri.DaoConfigSupri;
 import br.com.jdsb.valhalla.sql.core.dao.consultas.Consultas;
+import br.com.jdsb.valhalla.sql.core.dao.estoque.DaoEstoque;
 import br.com.jdsb.valhalla.sql.objects.conexao.Conexao;
 import br.com.jdsb.valhalla.sql.objects.configsupri.ConfigSupri;
 import br.com.jdsb.valhalla.sql.objects.estoque.Estoque;
@@ -21,6 +24,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ConfigSupriController implements Initializable {
 
@@ -28,6 +32,9 @@ public class ConfigSupriController implements Initializable {
 	ObservableList<String> optionsEmpresa = FXCollections.observableArrayList();
 	ObservableList<String> optionsEstoques = FXCollections.observableArrayList();
 	Dao<Conexao> dao;
+	Dao<Estoque> daoEstoque;
+	Consultas consultas ;
+	Dao<ConfigSupri> daoSupri;
 	private Conexao conexao;
 	private Estoque estoque;
 
@@ -35,6 +42,10 @@ public class ConfigSupriController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		dao = new DaoConexao();
+		daoSupri = new DaoConfigSupri();
+		daoEstoque = new DaoEstoque();
+		consultas = new Consultas();
+
 		carregarConexoes();
 
 		this.tpConexao.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
@@ -45,7 +56,7 @@ public class ConfigSupriController implements Initializable {
 
 	                String dsConexao = optionsConexao.get(new_value.intValue());
 	                         conexao = dao.consultar(dsConexao);
-	                Consultas consultas = new Consultas();
+
 	                carregarEmpresas(consultas.listar(conexao));
 	            }
 	        });
@@ -58,7 +69,6 @@ public class ConfigSupriController implements Initializable {
 
                 String dsMultiEmpresa = optionsEmpresa.get(new_value.intValue());
                 String[] cdMultiEmpresa = dsMultiEmpresa.split("-");
-                Consultas consultas = new Consultas();
                 carregarEstoques(consultas.listarEstoques(conexao,cdMultiEmpresa[0]));
             }
         });
@@ -143,8 +153,21 @@ public class ConfigSupriController implements Initializable {
 	}
 
 	public void addEstoque(){
-		if(cdConfigSupri!=null){
-
+		if(cdConfigSupri!=null && !cdConfigSupri.getText().isEmpty()){
+			estoque.setCdConfigSupri(cdConfigSupri.getText());
+			daoEstoque.salvar(estoque);
+			carregarDadosEstoque();
+		}else{
+			ConfigSupri configSupri = new ConfigSupri();
+	        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[1]);
+	        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[1]);
+	        configSupri.setCdConexao(conexao.getCdConexao());
+	        daoSupri.salvar(configSupri);
+	        configSupri = daoSupri.consultar(conexao.getCdConexao().toString());
+			cdConfigSupri.setText(configSupri.getCdConfigSupri().toString());
+	        estoque.setCdConfigSupri(cdConfigSupri.getText());
+			daoEstoque.salvar(estoque);
+			carregarDadosEstoque();
 		}
 
 	}
@@ -172,6 +195,20 @@ public class ConfigSupriController implements Initializable {
 			optionsEstoques.add(string);
 		}
 		cdEstoque.setItems(optionsEstoques);
+	}
+
+	private ObservableList<Estoque> populateTable = FXCollections.observableArrayList();
+
+	private void carregarDadosEstoque() {
+		populateTable = FXCollections.observableArrayList();
+		for(Estoque cliente:consultas.listarEstoques(cdConfigSupri.getText())) {
+			populateTable.add(cliente);
+		}
+
+		tbcCdEstoque.setCellValueFactory(new PropertyValueFactory<Estoque,String>("cdEstoque"));
+		tbcDsEstoque.setCellValueFactory(new PropertyValueFactory<Estoque,String>("dsEstoque"));
+
+		grdEstoque.setItems(populateTable);;
 	}
 
 }
