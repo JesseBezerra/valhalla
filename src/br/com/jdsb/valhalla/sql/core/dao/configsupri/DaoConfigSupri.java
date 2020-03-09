@@ -106,7 +106,7 @@ public class DaoConfigSupri implements Dao<ConfigSupri> {
 
 	@Override
 	public void atualizar(ConfigSupri t) {
-		String comando = "UPDATE CONFIG_SUPRI SET CD_CONEXAO = ? ,CD_MULTI_EMPRESA = ? ,CD_ESTOQUE = ? ,CD_ESPECIE = ? ,CD_CLASSE = ?,CD_SUB_CLASSE = ? ,QT_SALDO_PADRAO = ? ,DS_UNIDADE_PADRAO= ? WHERE CD_CONFIG_SUPRI = ?";
+		String comando = "UPDATE CONFIG_SUPRI SET CD_CONEXAO = ? ,CD_MULTI_EMPRESA = ? ,CD_ESTOQUE = ? ,CD_ESPECIE = ? ,CD_CLASSE = ?,CD_SUB_CLASSE = ? ,QT_SALDO_PADRAO = ? ,DS_UNIDADE_PADRAO= ? WHERE CD_CONEXAO = ?";
         try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);

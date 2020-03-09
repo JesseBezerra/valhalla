@@ -1,6 +1,5 @@
 package application;
 
-import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,7 +39,9 @@ public class ConfigSupriController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+
+		cdMultiEmpresa.setDisable(false);
+
 		dao = new DaoConexao();
 		daoSupri = new DaoConfigSupri();
 		daoEstoque = new DaoEstoque();
@@ -56,8 +57,8 @@ public class ConfigSupriController implements Initializable {
 
 	                String dsConexao = optionsConexao.get(new_value.intValue());
 	                         conexao = dao.consultar(dsConexao);
-
-	                carregarEmpresas(consultas.listar(conexao));
+	                  carregarEmpresas(consultas.listar(conexao));
+	                  carregarConfigSuprii(conexao);
 	            }
 	        });
 
@@ -86,6 +87,48 @@ public class ConfigSupriController implements Initializable {
                 estoque.setDsEstoque(campoEstoque[1]);
             }
         });
+
+		this.cdEspec.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		        if(!newValue) {
+		        	try {
+						dsEspec.setText(consultas.getDsEspecie(conexao, cdEspec.getText()));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    }
+		});
+
+		this.cdClass.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		        if(!newValue) {
+		        	try {
+						dsClasse.setText(consultas.getDsClass(conexao, cdEspec.getText(),cdClass.getText()));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    }
+		});
+
+		this.cdSubClass.focusedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		        if(!newValue) {
+		        	try {
+						dsSubClasse.setText(consultas.getDsSubClass(conexao, cdEspec.getText(), cdClass.getText(),cdSubClass.getText()));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    }
+		});
 	}
 
 	@FXML
@@ -146,9 +189,19 @@ public class ConfigSupriController implements Initializable {
 	@FXML
 	void salvar(ActionEvent event) {
         ConfigSupri configSupri = new ConfigSupri();
-        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[1]);
-        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[1]);
+        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[0]);
+        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[0]);
         configSupri.setCdConexao(conexao.getCdConexao());
+        configSupri.setQtSaldoPadrao(qtSaldoPadrao.getText());
+        configSupri.setCdEspec(cdEspec.getText());
+        configSupri.setCdClass(cdClass.getText());
+        configSupri.setCdSubClass(cdSubClass.getText());
+        configSupri.setDsUnidadePadrao(dsUnidadePadrao.getText());
+        if(cdConfigSupri!=null && !cdConfigSupri.getText().isEmpty()){
+        	daoSupri.atualizar(configSupri);;
+        }else{
+        	daoSupri.salvar(configSupri);
+        }
 
 	}
 
@@ -159,8 +212,8 @@ public class ConfigSupriController implements Initializable {
 			carregarDadosEstoque();
 		}else{
 			ConfigSupri configSupri = new ConfigSupri();
-	        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[1]);
-	        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[1]);
+	        configSupri.setCdMultiEmpresa(cdMultiEmpresa.getValue().split("-")[0]);
+	        configSupri.setCdEstoque(cdEstoque.getValue().split("-")[0]);
 	        configSupri.setCdConexao(conexao.getCdConexao());
 	        daoSupri.salvar(configSupri);
 	        configSupri = daoSupri.consultar(conexao.getCdConexao().toString());
@@ -173,7 +226,10 @@ public class ConfigSupriController implements Initializable {
 	}
 
 	public void rmEstoque(){
-
+	  if(estoque!=null){
+	      daoEstoque.remover(estoque);
+	      carregarDadosEstoque();
+	  }
 	}
 
 	public void carregarConexoes(){
@@ -209,6 +265,34 @@ public class ConfigSupriController implements Initializable {
 		tbcDsEstoque.setCellValueFactory(new PropertyValueFactory<Estoque,String>("dsEstoque"));
 
 		grdEstoque.setItems(populateTable);;
+	}
+
+	private void carregarConfigSuprii(Conexao conexao){
+		ConfigSupri configSupri = daoSupri.consultar(this.conexao.getCdConexao().toString());
+		if(configSupri!=null)
+		{
+			cdConfigSupri.setText(configSupri.getCdConfigSupri().toString());
+			cdMultiEmpresa.setValue(consultas.getCdMultiEmpresa(conexao, configSupri.getCdMultiEmpresa()));
+			carregarDadosEstoque();
+			carregarEstoques(consultas.listarEstoques(conexao,configSupri.getCdMultiEmpresa()));
+			cdEstoque.setValue(consultas.getCdEstoque(conexao, configSupri.getCdEstoque()));
+			cdMultiEmpresa.setDisable(true);
+			cdEspec.setText(configSupri.getCdEspec());
+			if(cdEspec!=null && !cdEspec.getText().isEmpty()){
+				dsEspec.setText(consultas.getDsEspecie(conexao, cdEspec.getText()));
+			}
+			cdClass.setText(configSupri.getCdClass());
+			if(cdClass!=null && !cdClass.getText().isEmpty()){
+				dsClasse.setText(consultas.getDsClass(conexao, cdEspec.getText(),cdClass.getText()));
+			}
+			cdSubClass.setText(configSupri.getCdSubClass());
+			if(cdSubClass.getText()!=null && !cdSubClass.getText().isEmpty()){
+				dsSubClasse.setText(consultas.getDsSubClass(conexao, cdEspec.getText(), cdClass.getText(),cdSubClass.getText()));
+			}
+			qtSaldoPadrao.setText(configSupri.getQtSaldoPadrao());
+			dsUnidadePadrao.setText(configSupri.getDsUnidadePadrao());
+
+		}
 	}
 
 }

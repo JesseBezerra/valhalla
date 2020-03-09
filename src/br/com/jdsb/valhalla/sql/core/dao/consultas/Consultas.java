@@ -34,6 +34,114 @@ public class Consultas {
 	      return retorno;
 	}
 
+	public String getCdMultiEmpresa(Conexao conexao,String cdMultiEmpresa) {
+		  String retorno = null;
+
+	      String consulta = "SELECT CD_MULTI_EMPRESA || ' - ' || DS_MULTI_EMPRESA AS DS_MULTI_EMPRESA FROM DBAMV.MULTI_EMPRESAS WHERE CD_MULTI_EMPRESA = ? ORDER BY CD_MULTI_EMPRESA";
+	      try {
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdMultiEmpresa);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+                  retorno = (rs.getString("DS_MULTI_EMPRESA"));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public String getCdEstoque(Conexao conexao,String cdEstoque) {
+		  String retorno = null;
+
+	      String consulta = "SELECT CD_ESTOQUE || ' - ' || DS_ESTOQUE AS DS_ESTOQUE FROM DBAMV.ESTOQUE WHERE CD_ESTOQUE = ? ORDER BY CD_ESTOQUE";
+	      try {
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdEstoque);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+                retorno = (rs.getString("DS_ESTOQUE"));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public String getDsEspecie(Conexao conexao,String cdEspecie) {
+		   String retorno = null;
+
+	      String consulta = "SELECT DS_ESPECIE FROM DBAMV.ESPECIE WHERE CD_ESPECIE = ? ";
+	      try {
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdEspecie);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+                  retorno = (rs.getString("DS_ESPECIE"));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public String getDsClass(Conexao conexao,String cdEspecie,String cdClasse) {
+		   String retorno = null;
+
+	      String consulta = "SELECT DS_CLASSE FROM DBAMV.CLASSE WHERE CD_ESPECIE = ? AND CD_CLASSE = ?";
+	      try {
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdEspecie);
+			    pstmt.setString(2, cdClasse);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+               retorno = (rs.getString("DS_CLASSE"));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public String getDsSubClass(Conexao conexao,String cdEspecie,String cdClasse,String cdSubClass) {
+		   String retorno = null;
+
+	      String consulta = "SELECT DS_SUB_CLA FROM DBAMV.SUB_CLAS WHERE CD_ESPECIE = ? AND CD_CLASSE = ? AND CD_SUB_CLA = ? ";
+	      try {
+				Connection connection = ConnectionSystem.getConnection(conexao.getDsUrl(), conexao.getDsPorta(), conexao.getDsSid(), conexao.getDsUsuario(), conexao.getDsSenha(),conexao.getSnService());
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdEspecie);
+			    pstmt.setString(2, cdClasse);
+			    pstmt.setString(3, cdSubClass);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+            retorno = (rs.getString("DS_SUB_CLA"));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
 	public List<String> listarEstoques(Conexao conexao,String cdMultiEmpresa) {
 		 List<String> retorno = new ArrayList<String>();
 
