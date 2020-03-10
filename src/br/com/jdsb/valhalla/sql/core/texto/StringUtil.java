@@ -2,7 +2,10 @@ package br.com.jdsb.valhalla.sql.core.texto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class StringUtil {
 
@@ -31,6 +34,17 @@ public class StringUtil {
 	public StringBuilder cabecalho(String supri, String descricao,String produto,String owner, String tabela) throws ParseException{
 		StringBuilder retorno = new StringBuilder();
 		retorno = retorno.append(String.format(CONSTANTE_CABECALHO, supri,descricao,converteDataCabecalho(new Date()),produto,owner,tabela));
+		return retorno;
+	}
+
+	public String quebrarTexto(String texto){
+		List<String> strings = new ArrayList<String>();
+		String retorno = "";
+		strings.addAll(Arrays.asList(texto.split("(?<=\\G.{130})")));
+		for (String str : strings){
+			retorno = retorno.concat(str).concat("\n");
+		}
+
 		return retorno;
 	}
 

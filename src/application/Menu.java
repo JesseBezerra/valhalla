@@ -109,6 +109,22 @@ public class Menu implements Initializable{
 	          }
 	}
 
+	public void goChamado(){
+		try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_chamado.fxml"));
+	        Parent root1 = (Parent) fxmlLoader.load();
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Config. Suprimentos");
+	        stage.setResizable(false);
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.setScene(new Scene(root1));
+	        stage.show();
+	        } catch(Exception e) {
+	           e.printStackTrace();
+	          }
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

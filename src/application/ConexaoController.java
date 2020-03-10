@@ -24,7 +24,8 @@ public class ConexaoController implements Initializable {
 	ObservableList<String> optionsConexao = FXCollections.observableArrayList("Extrair","Executar","Consultar");
 	ObservableList<String> optionSnAtivo = FXCollections.observableArrayList("Sim","Não");
     private Dao<Conexao> dao;
-	@Override
+
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dao = new DaoConexao();
 
