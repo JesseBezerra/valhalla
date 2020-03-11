@@ -6,7 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
-	 <VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Menu">
+	 <VBox prefHeight="20.0" prefWidth="600.0"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Menu">
 	  <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Ações">
@@ -41,11 +41,12 @@
         <Menu mnemonicParsing="false" text="Configurações">
           <items>
            <Menu mnemonicParsing="false" text="Cadastros" >
-            <MenuItem mnemonicParsing="false" text="Cadastro de Objetos" onAction="#goObjetos"/>
-            <MenuItem mnemonicParsing="false" text="Cadastro de Prefixos" onAction="#goPrefixos"/>
-            <MenuItem mnemonicParsing="false" text="Cadastro de Conexões" onAction="#goConexao"/>
-            <MenuItem mnemonicParsing="false" text="Cadastro de Produtos" onAction="#goProdutos"/>
-            <MenuItem mnemonicParsing="false" text="Cadastro de Versões" onAction="#goProdutos"/>
+            <MenuItem mnemonicParsing="false" text="Objetos" onAction="#goObjetos"/>
+            <MenuItem mnemonicParsing="false" text="Prefixos" onAction="#goPrefixos"/>
+            <MenuItem mnemonicParsing="false" text="Conexões" onAction="#goConexao"/>
+            <MenuItem mnemonicParsing="false" text="Produtos" onAction="#goProdutos"/>
+            <MenuItem mnemonicParsing="false" text="Versões" onAction="#goProdutos"/>
+             <MenuItem mnemonicParsing="false" text="Usuários" onAction="#goUsuarios"/>
             </Menu>
              <Menu mnemonicParsing="false" text="Suprimentos" >
                      <MenuItem mnemonicParsing="false" text="Configurações" onAction="#goConfigSupri"/>

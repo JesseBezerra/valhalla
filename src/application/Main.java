@@ -13,14 +13,14 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			try {
-				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_coluna_v.fxml"));
+				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_chamado.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				primaryStage.setResizable(false);
-				primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+				primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 				primaryStage.setResizable(false);
-				primaryStage.setTitle("Validador v2.0 (Valhalla) - Beta");
+				primaryStage.setTitle("Empacotador v2.0 (Agendador) - Beta");
 				primaryStage.show();
 			} catch(Exception e) {
 				e.printStackTrace();

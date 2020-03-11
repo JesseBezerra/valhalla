@@ -11,7 +11,6 @@ import java.util.List;
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.objects.chamado.Chamado;
-import br.com.jdsb.valhalla.sql.objects.objeto.Objeto;
 
 public class DaoChamado implements Dao<Chamado> {
 
@@ -67,7 +66,7 @@ public class DaoChamado implements Dao<Chamado> {
 		 		                            + "DS_OBSERVACAO,"
 		 		                            + "SN_ATIVO,"
 		 		                            + "TOTAL_MINUTOS_TRABALHADOS,"
-		 		                            + "TOTAL_PERCENTUAL_CONCLUSAO"
+		 		                            + "TOTAL_PERCENTUAL_CONCLUSAO,"
 		 		                            + "CD_TICKET_ASSOCIADO,"
 		 		                            + "SN_PRIORITARIO,"
 		 		                            + "NR_ORDEM_PRIORIDADE) VALUES (?,?,?,?,?,?,?,?,?,?)";

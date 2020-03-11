@@ -1,5 +1,6 @@
 package br.com.jdsb.valhalla.sql.core.dao.consultas;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +10,10 @@ import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
 import br.com.jdsb.valhalla.sql.core.connection.ConnectionSystem;
+import br.com.jdsb.valhalla.sql.objects.chamado.Chamado;
 import br.com.jdsb.valhalla.sql.objects.conexao.Conexao;
 import br.com.jdsb.valhalla.sql.objects.estoque.Estoque;
+import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
 
 public class Consultas {
 
@@ -174,6 +177,56 @@ public class Consultas {
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
 			    	retorno.add(new Estoque(rs.getString("CD_ESTOQUE"), rs.getString("DS_ESTOQUE"), rs.getString("CD_CONFIG_SUPRI")));
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public Usuario consultar(String condicao) {
+		   Usuario retorno = null;
+	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO WHERE NM_USUARIO = ?";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, condicao);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno = (new Usuario(rs.getString("CD_USUARIO"),rs.getString("NM_USUARIO"),rs.getString("TP_USUARIO"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public List<Chamado> listarChamadosUsuario(String cdUsuario) {
+		List<Chamado> retorno = new ArrayList<Chamado>();
+
+	      String consulta = "SELECT CD_TICKET,DS_TICKET,CD_USUARIO,DS_OBSERVACAO,SN_ATIVO,TOTAL_MINUTOS_TRABALHADOS,TOTAL_PERCENTUAL_CONCLUSAO,CD_TICKET_ASSOCIADO,SN_PRIORITARIO, NR_ORDEM_PRIORIDADE FROM CHAMADO WHERE CD_USUARIO = ? and SN_ATIVO = 'Sim' ";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdUsuario);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Chamado(rs.getString("CD_TICKET"),
+			    			                rs.getString("DS_TICKET"),
+			    			                rs.getString("CD_USUARIO"),
+			    			                rs.getString("DS_OBSERVACAO"),
+			    			                rs.getString("SN_ATIVO"),
+			    			                new BigInteger(rs.getString("TOTAL_MINUTOS_TRABALHADOS")),
+			    			                new BigInteger(rs.getString("TOTAL_PERCENTUAL_CONCLUSAO")),
+			    			                rs.getString("CD_TICKET_ASSOCIADO"),
+			    			                rs.getString("SN_PRIORITARIO"),
+			    			                rs.getString("NR_ORDEM_PRIORIDADE")
+
+			    			));
 			    }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

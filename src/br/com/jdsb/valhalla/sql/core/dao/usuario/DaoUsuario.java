@@ -2,7 +2,9 @@ package br.com.jdsb.valhalla.sql.core.dao.usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
@@ -50,25 +52,73 @@ public class DaoUsuario implements Dao<Usuario> {
 
 	@Override
 	public Usuario consultar(String condicao) {
-		// TODO Auto-generated method stub
-		return null;
+		   Usuario retorno = null;
+	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO WHERE CD_USUARIO = ?";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, condicao);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno = (new Usuario(rs.getString("CD_USUARIO"),rs.getString("NM_USUARIO"),rs.getString("TP_USUARIO"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
 	}
 
 	@Override
 	public List<Usuario> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Usuario> retorno = new ArrayList<Usuario>();
+	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO";
+	      try {
+				Connection connection = ConexaoLite.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Usuario(rs.getString("CD_USUARIO"),rs.getString("NM_USUARIO"),rs.getString("TP_USUARIO"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
 	}
 
 	@Override
 	public void atualizar(Usuario t) {
-		// TODO Auto-generated method stub
+		String comando = "UPDATE USUARIO SET NM_USUARIO = ?, TP_USUARIO = ?, SN_ATIVO = ? WHERE CD_USUARIO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, t.getNmUsuario());
+		    pstmt.setString(2, t.getTpPerfil());
+		    pstmt.setString(3, t.getSnAtivo());
+		    pstmt.setString(4, t.getCdUsuario());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void remover(Usuario t) {
-		// TODO Auto-generated method stub
+		String comando = "DELETE FROM USUARIO WHERE CD_USUARIO = ? ";
+        try {
+			Connection connection = ConexaoLite.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, t.getCdUsuario());
+		    pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -76,6 +126,11 @@ public class DaoUsuario implements Dao<Usuario> {
 	public boolean validaPadrao(Usuario t) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public static void main(String[] args) {
+		DaoUsuario daoUsuario = new DaoUsuario();
+		daoUsuario.criarTabela();
 	}
 
 }

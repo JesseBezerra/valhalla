@@ -21,7 +21,7 @@ public class Menu implements Initializable{
 	        stage.setTitle("Objetos de Dados ");
 	        stage.setResizable(false);
 	       // stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -37,7 +37,7 @@ public class Menu implements Initializable{
 	        Stage stage = new Stage();
 	        stage.setTitle("Prefixos de Dados ");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -53,7 +53,7 @@ public class Menu implements Initializable{
 	        Stage stage = new Stage();
 	        stage.setTitle("Conexão de Dados ");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -69,7 +69,7 @@ public class Menu implements Initializable{
 	        Stage stage = new Stage();
 	        stage.setTitle("Produtos");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -85,7 +85,7 @@ public class Menu implements Initializable{
 	        Stage stage = new Stage();
 	        stage.setTitle("Produtos Suprimentos");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -101,7 +101,7 @@ public class Menu implements Initializable{
 	        Stage stage = new Stage();
 	        stage.setTitle("Config. Suprimentos");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
@@ -115,9 +115,25 @@ public class Menu implements Initializable{
 	        Parent root1 = (Parent) fxmlLoader.load();
 
 	        Stage stage = new Stage();
-	        stage.setTitle("Config. Suprimentos");
+	        stage.setTitle("Empacotador v2.0 (Cad. Agenda) - Beta");
 	        stage.setResizable(false);
-	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("valhalla.jpg")));
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
+	        stage.setScene(new Scene(root1));
+	        stage.show();
+	        } catch(Exception e) {
+	           e.printStackTrace();
+	          }
+	}
+
+	public void goUsuarios(){
+		try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_usuario.fxml"));
+	        Parent root1 = (Parent) fxmlLoader.load();
+
+	        Stage stage = new Stage();
+	        stage.setTitle("Empacotador v2.0 (Cad. Usuários) - Beta");
+	        stage.setResizable(false);
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
 	        stage.setScene(new Scene(root1));
 	        stage.show();
 	        } catch(Exception e) {
