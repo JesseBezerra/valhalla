@@ -43,6 +43,7 @@
                   <TableColumn fx:id="tbcVlPerConclusao" prefWidth="82.0" text="\% Concl." />
               </columns>
             </TableView>
+            <Button layoutX="619.0" layoutY="539.0" mnemonicParsing="false" onAction="#chrome" prefHeight="25.0" prefWidth="79.0" text="A. Chrome" />
          </children>
     </AnchorPane>
   </children>

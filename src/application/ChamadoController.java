@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
 
+import br.com.jdsb.valhalla.integracao.cmd.chrome.CMD;
 import br.com.jdsb.valhalla.integracao.jira.baeldung.JiraClient;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.chamado.DaoChamado;
@@ -13,7 +14,6 @@ import br.com.jdsb.valhalla.sql.core.dao.consultas.Consultas;
 import br.com.jdsb.valhalla.sql.core.dao.usuario.DaoUsuario;
 import br.com.jdsb.valhalla.sql.core.texto.StringUtil;
 import br.com.jdsb.valhalla.sql.objects.chamado.Chamado;
-import br.com.jdsb.valhalla.sql.objects.conexao.Conexao;
 import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,7 +63,7 @@ public class ChamadoController implements Initializable {
 
 	private Consultas consultas;
 
-	ObservableList<String> optionsSnAtivo = FXCollections.observableArrayList("Sim","Não");
+	ObservableList<String> optionsSnAtivo = FXCollections.observableArrayList("Sim", "Não");
 	ObservableList<String> optionsUsuario = FXCollections.observableArrayList();
 
 	private Dao<Usuario> dao;
@@ -87,7 +87,6 @@ public class ChamadoController implements Initializable {
 	@FXML
 	private TableColumn<Chamado, BigInteger> tbcVlPerConclusao;
 
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		dao = new DaoUsuario();
@@ -96,17 +95,18 @@ public class ChamadoController implements Initializable {
 		consultas = new Consultas();
 		client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
 		util = new StringUtil();
-        snPrioritario.setItems(optionsSnAtivo);
-        snPrioritario.setValue("Não");
-        carregaOptionObjetos();
+		snPrioritario.setItems(optionsSnAtivo);
+		snPrioritario.setValue("Não");
+		carregaOptionObjetos();
 
-        grdChamado.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-		    if (newSelection != null) {
-		    	Chamado chamado = new Chamado();
-		    	chamado = grdChamado.getSelectionModel().getSelectedItem();
-		    	dsObservacao.setText(chamado.getDsObservacao());
-		    	cdTicket.setText(chamado.getCdTicket());
-		    }
+		grdChamado.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				Chamado chamado = new Chamado();
+				chamado = grdChamado.getSelectionModel().getSelectedItem();
+				dsObservacao.setText(chamado.getDsObservacao());
+				cdTicket.setText(chamado.getCdTicket());
+				cdTicketValidate();
+			}
 		});
 
 		this.cdTicket.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -114,12 +114,12 @@ public class ChamadoController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
 					try {
-						if(cdTicket!=null && !cdTicket.getText().isEmpty()){
-								issue = client.getIssue(cdTicket.getText());
-								dsTitulo.setText(issue.getSummary());
-								dsTicket.setText(util.quebrarTexto(issue.getDescription()));
-								dsSituacao.setText(issue.getStatus().getName());
-								dsPrioridade.setText(issue.getPriority().getName());
+						if (cdTicket != null && !cdTicket.getText().isEmpty()) {
+							issue = client.getIssue(cdTicket.getText());
+							dsTitulo.setText(issue.getSummary());
+							dsTicket.setText(util.quebrarTexto(issue.getDescription()));
+							dsSituacao.setText(issue.getStatus().getName());
+							dsPrioridade.setText(issue.getPriority().getName());
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -131,20 +131,35 @@ public class ChamadoController implements Initializable {
 
 		this.dsUsuarioAtribui.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
-            // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+			// if the item of the list is changed
+			public void changed(ObservableValue ov, Number value, Number new_value) {
 
-                String nmUsuario = optionsUsuario.get(new_value.intValue());
-                usuario = consultas.consultar(nmUsuario);
-                carregarDados();
-            }
-        });
+				String nmUsuario = optionsUsuario.get(new_value.intValue());
+				usuario = consultas.consultar(nmUsuario);
+				carregarDados();
+			}
+		});
+	}
+
+	private void cdTicketValidate() {
+		if (cdTicket != null && !cdTicket.getText().isEmpty()) {
+			issue = client.getIssue(cdTicket.getText());
+			dsTitulo.setText(issue.getSummary());
+			dsTicket.setText(util.quebrarTexto(issue.getDescription()));
+			dsSituacao.setText(issue.getStatus().getName());
+			dsPrioridade.setText(issue.getPriority().getName());
+		}
+
 	}
 
 	@FXML
 	void limpar(ActionEvent event) {
 
+	}
+
+	@FXML
+	void chrome(ActionEvent event) {
+		CMD.chamaChromeDoes(String.format("https://jira.mv.com.br/browse/%s", cdTicket.getText()));
 	}
 
 	@FXML
@@ -159,7 +174,7 @@ public class ChamadoController implements Initializable {
 		chamado.setTotalPercentualConclusao(new BigInteger("0"));
 		chamado.setTotalMinutosTrabalhados(new BigInteger("0"));
 		daoChamado.remover(chamado);
-        carregarDados();
+		carregarDados();
 	}
 
 	@FXML
@@ -175,38 +190,39 @@ public class ChamadoController implements Initializable {
 		chamado.setTotalPercentualConclusao(new BigInteger("0"));
 		chamado.setTotalMinutosTrabalhados(new BigInteger("0"));
 		Chamado aux = daoChamado.consultar(cdTicket.getText());
-		if(aux==null){
-		daoChamado.salvar(chamado);
-		}else{
+		if (aux == null) {
+			daoChamado.salvar(chamado);
+		} else {
 			daoChamado.atualizar(chamado);
 		}
 		client.addComment(issue, dsObservacao.getText());
-        carregarDados();
-
+		carregarDados();
 
 	}
 
-	 public void carregaOptionObjetos(){
-	       for(Usuario usuario:dao.listar()){
-	    	   optionsUsuario.add(usuario.getNmUsuario());
-	       }
-	       dsUsuarioAtribui.setItems(optionsUsuario);
-	    }
-
-	 private ObservableList<Chamado> populateTable = FXCollections.observableArrayList();
-
-	 private void carregarDados() {
-			populateTable = FXCollections.observableArrayList();
-			for(Chamado cliente:consultas.listarChamadosUsuario(usuario.getCdUsuario())) {
-				populateTable.add(cliente);
-			}
-
-			tbcCdTicket.setCellValueFactory(new PropertyValueFactory<Chamado,String>("cdTicket"));
-			tbcDsTitulo.setCellValueFactory(new PropertyValueFactory<Chamado,String>("dsTicket"));
-			tbcSnPrioritario.setCellValueFactory(new PropertyValueFactory<Chamado,String>("snPrioritario"));
-			tbcVlPerConclusao.setCellValueFactory(new PropertyValueFactory<Chamado,BigInteger>("totalPercentualConclusao"));
-
-			grdChamado.setItems(populateTable);;
+	public void carregaOptionObjetos() {
+		for (Usuario usuario : dao.listar()) {
+			optionsUsuario.add(usuario.getNmUsuario());
 		}
+		dsUsuarioAtribui.setItems(optionsUsuario);
+	}
+
+	private ObservableList<Chamado> populateTable = FXCollections.observableArrayList();
+
+	private void carregarDados() {
+		populateTable = FXCollections.observableArrayList();
+		for (Chamado cliente : consultas.listarChamadosUsuario(usuario.getCdUsuario())) {
+			populateTable.add(cliente);
+		}
+
+		tbcCdTicket.setCellValueFactory(new PropertyValueFactory<Chamado, String>("cdTicket"));
+		tbcDsTitulo.setCellValueFactory(new PropertyValueFactory<Chamado, String>("dsTicket"));
+		tbcSnPrioritario.setCellValueFactory(new PropertyValueFactory<Chamado, String>("snPrioritario"));
+		tbcVlPerConclusao
+				.setCellValueFactory(new PropertyValueFactory<Chamado, BigInteger>("totalPercentualConclusao"));
+
+		grdChamado.setItems(populateTable);
+		;
+	}
 
 }

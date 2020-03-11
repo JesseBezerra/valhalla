@@ -16,7 +16,7 @@ public class Dialogs {
 		alert.setTitle(titulo);
 		alert.setHeaderText(mensagem);
 		alert.setContentText(acao);
-		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("valhalla.jpg")));
+		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("nave.png")));
 		alert.showAndWait();
 	}
 
@@ -24,7 +24,7 @@ public class Dialogs {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(titulo);
 		alert.setHeaderText(mensagem);
-		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("valhalla.jpg")));
+		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("nave.png")));
 		alert.showAndWait();
 	}
 
@@ -33,7 +33,7 @@ public class Dialogs {
 	alert.setTitle(titulo);
 	alert.setHeaderText(mensagem);
 	alert.setContentText(questao);
-	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("valhalla.jpg")));
+	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("nave.png")));
 
 	Optional<ButtonType> result = alert.showAndWait();
 	if (result.get() == ButtonType.OK){
