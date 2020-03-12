@@ -12,6 +12,7 @@ import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.chamado.DaoChamado;
 import br.com.jdsb.valhalla.sql.core.dao.consultas.Consultas;
 import br.com.jdsb.valhalla.sql.core.dao.usuario.DaoUsuario;
+import br.com.jdsb.valhalla.sql.core.jfx.dialog.Dialogs;
 import br.com.jdsb.valhalla.sql.core.texto.StringUtil;
 import br.com.jdsb.valhalla.sql.objects.chamado.Chamado;
 import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
@@ -23,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -48,6 +50,12 @@ public class ChamadoController implements Initializable {
 
 	@FXML
 	private ChoiceBox<String> dsUsuarioAtribui;
+
+	@FXML
+	private ChoiceBox<String> snValidar;
+
+	@FXML
+	private Label txtSnValidar;
 
 	@FXML
 	private ChoiceBox<String> snPrioritario;
@@ -98,6 +106,11 @@ public class ChamadoController implements Initializable {
 		snPrioritario.setItems(optionsSnAtivo);
 		snPrioritario.setValue("Não");
 		carregaOptionObjetos();
+		snValidar.setItems(optionsSnAtivo);
+		snValidar.setValue("Não");
+
+		txtSnValidar.setVisible(false);
+		snValidar.setVisible(false);
 
 		grdChamado.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
@@ -106,6 +119,13 @@ public class ChamadoController implements Initializable {
 				dsObservacao.setText(chamado.getDsObservacao());
 				cdTicket.setText(chamado.getCdTicket());
 				cdTicketValidate();
+				if(cdTicket.getText().toUpperCase().contains("CIMP") && issue!=null && !issue.getStatus().getName().equals("AGUARDANDO VALIDAÇÃO")){
+					txtSnValidar.setVisible(true);
+					snValidar.setVisible(true);
+				}else{
+					txtSnValidar.setVisible(false);
+					snValidar.setVisible(false);
+				}
 			}
 		});
 
@@ -120,6 +140,14 @@ public class ChamadoController implements Initializable {
 							dsTicket.setText(util.quebrarTexto(issue.getDescription()));
 							dsSituacao.setText(issue.getStatus().getName());
 							dsPrioridade.setText(issue.getPriority().getName());
+							if(cdTicket.getText().toUpperCase().contains("CIMP") && issue!=null && !issue.getStatus().getName().equals("AGUARDANDO VALIDAÇÃO")){
+								txtSnValidar.setVisible(true);
+								snValidar.setVisible(true);
+							}else{
+								txtSnValidar.setVisible(false);
+								snValidar.setVisible(false);
+							}
+							dsObservacao.clear();
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -154,7 +182,7 @@ public class ChamadoController implements Initializable {
 
 	@FXML
 	void limpar(ActionEvent event) {
-
+      limpar();
 	}
 
 	@FXML
@@ -177,6 +205,19 @@ public class ChamadoController implements Initializable {
 		carregarDados();
 	}
 
+	public void limpar(){
+		snValidar.setValue("Não");
+		cdTicket.clear();
+	    dsTicket.clear();
+	    dsObservacao.clear();
+	    dsTitulo.clear();
+	    dsUsuarioAtribui.setValue("");
+	    dsSituacao.clear();
+	    dsPrioridade.setText("");
+	    snPrioritario.setValue("Não");
+
+	}
+
 	@FXML
 	void salvar(ActionEvent event) {
 
@@ -190,6 +231,14 @@ public class ChamadoController implements Initializable {
 		chamado.setTotalPercentualConclusao(new BigInteger("0"));
 		chamado.setTotalMinutosTrabalhados(new BigInteger("0"));
 		Chamado aux = daoChamado.consultar(cdTicket.getText());
+		if(snValidar!=null && snValidar.getValue().equals("Sim")){
+            if(dsObservacao==null || dsObservacao.getText().isEmpty()){
+            	Dialogs.AletaW("Atenção", "O campo observação é obrigatório para validar o chamado!", "Informe o movitovo da valiação no campo observação!");
+            }
+            chamado.setSnAtivo("Não");
+            chamado.setSnPrioritario("Não");
+            client.validarTicket(chamado);
+		}
 		if (aux == null) {
 			daoChamado.salvar(chamado);
 		} else {
@@ -197,6 +246,7 @@ public class ChamadoController implements Initializable {
 		}
 		client.addComment(issue, dsObservacao.getText());
 		carregarDados();
+		limpar();
 
 	}
 

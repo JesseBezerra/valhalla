@@ -35,6 +35,7 @@
           <items>
            <Menu mnemonicParsing="false" text="Jira" >
              <MenuItem mnemonicParsing="false" text="Chamados" onAction="#goChamado"/>
+             <MenuItem mnemonicParsing="false" text="Apontamento" onAction="#goApontamento"/>
              </Menu>
           </items>
         </Menu>

@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="252.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ApontamentoController">
    <children>
-      <ChoiceBox layoutX="26.0" layoutY="86.0" prefWidth="150.0" />
-      <Label layoutX="26.0" layoutY="34.0" prefHeight="46.0" prefWidth="238.0" text="Label" />
+      <ChoiceBox fx:id="cdTicket" layoutX="9.0" layoutY="55.0" prefHeight="23.0" prefWidth="238.0" />
+      <Label layoutX="9.0" layoutY="9.0" prefHeight="46.0" prefWidth="238.0" text="DEMANDA">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="9.0" layoutY="80.0" prefHeight="46.0" prefWidth="238.0" text="CONCLUSAO %">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="vlPercConclusao" layoutX="9.0" layoutY="126.0" prefHeight="23.0" prefWidth="238.0" value="0">
+       <items>
+					<FXCollections fx:factory="observableArrayList">
+						<String fx:value="0" />
+						<String fx:value="10" />
+						<String fx:value="20" />
+						<String fx:value="30" />
+						<String fx:value="40" />
+						<String fx:value="50" />
+						<String fx:value="60" />
+						<String fx:value="70" />
+						<String fx:value="80" />
+						<String fx:value="90" />
+						<String fx:value="100" />
+					</FXCollections>
+				</items>
+      </ChoiceBox>
+      <Button layoutX="45.0" layoutY="346.0" mnemonicParsing="false" onAction="#apontar" prefHeight="51.0" prefWidth="152.0" text="APONTAR">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="dsComentario" layoutX="9.0" layoutY="170.0" prefHeight="173.0" prefWidth="238.0" />
+      <Label layoutX="10.0" layoutY="153.0" prefHeight="17.0" prefWidth="137.0" text="Comentário *(opcional)" />
    </children>
 </AnchorPane>

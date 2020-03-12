@@ -1,21 +1,12 @@
 package br.com.jdsb.valhalla.integracao.jira.baeldung;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
-import org.joda.time.DateTime;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Transition;
-import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
-import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
-import com.atlassian.jira.rest.client.api.domain.input.TransitionInput;
-import com.atlassian.jira.rest.client.api.domain.input.WorklogInput;
-import com.atlassian.jira.rest.client.api.domain.input.WorklogInputBuilder;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
 
@@ -67,6 +58,10 @@ public class JiraClient {
 	        int transitionId = 0;
 	        JiraFaseController controller = new JiraFaseController(restClient);
 	        while (transitions.hasNext()) {
+	        	promiseIssue = restClient.getIssueClient().getIssue(correcao.getCdTicket());
+	        	transitions =
+	   	    		 restClient.getIssueClient().getTransitions(issue).get().iterator();
+	        	issue = promiseIssue.claim();
 	            Transition transition = transitions.next();
 	            if(transition.getName().equals("Analisar N2")){
 	            	transitionId = 311;
@@ -74,17 +69,20 @@ public class JiraClient {
 	            	transitionId = 321;
 	            }else if (transition.getName().equals("Enviar para validação")){
 	            	transitionId = 261;
-	            }else if(transition.getName().toUpperCase().equals("VALIDAR")){
+	            }
+	            else if(transition.getName().toUpperCase().equals("VALIDAR")  && issue.getStatus().getName().equals("EM ATENDIMENTO")){
 	            	transitionId = 861;
 	            	controller.mudarFase(transitionId, issue, correcao);
 	            	break;
-	            }else if(transition.getName().toUpperCase().equals("TRIAR")){
+	            }else if(transition.getName().toUpperCase().equals("TRIAR") && issue.getStatus().getName().equals("ABERTO")){
 	            	transitionId = 731;
 	            	controller.mudarFase(transitionId, issue, correcao);
-	            }else if(transition.getName().toUpperCase().equals("Backlog atendimento".toUpperCase())){
+	            	transitions =
+	   	   	    		 restClient.getIssueClient().getTransitions(issue).get().iterator();
+	            }else if(transition.getName().toUpperCase().equals("Backlog atendimento".toUpperCase()) && issue.getStatus().getName().equals("EM TRIAGEM")){
 	            	transitionId = 741;
 	    	        controller.mudarFase(transitionId, issue, correcao);
-	            }else if(transition.getName().toUpperCase().equals("Atender".toUpperCase())){
+	            }else if(transition.getName().toUpperCase().equals("Atender".toUpperCase()) && issue.getStatus().getName().equals("AGUARDANDO ATENDIMENTO")){
 	            	transitionId = 761;
 	    	        controller.mudarFase(transitionId, issue, correcao);
 	            }
@@ -96,10 +94,16 @@ public class JiraClient {
 	    }
 	}
 
+	public void apontarAtividade(Chamado correcao,String comentario){
+		JiraApontamentoController apontamentoController = new JiraApontamentoController(restClient);
+		apontamentoController.realizarApontamento(correcao, comentario);
+
+	}
+
 	public static void main(String[] args) {
 		JiraClient client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
 		DaoChamado dao = new DaoChamado();
-		Chamado chamado = dao.consultar("CIMP-14688");
+		Chamado chamado = dao.consultar("CIMP-14725");
 		client.validarTicket(chamado);
 	}
 

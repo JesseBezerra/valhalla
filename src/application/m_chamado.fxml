@@ -32,8 +32,8 @@
             <Button layoutX="708.0" layoutY="539.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="79.0" text="Salvar" />
             <Button layoutX="104.0" layoutY="539.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="79.0" text="Remover" />
             <Button layoutX="16.0" layoutY="539.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="79.0" text="Limpar" />
-            <ChoiceBox fx:id="snPrioritario" layoutX="634.0" layoutY="75.0" prefHeight="25.0" prefWidth="149.0" />
-            <Label layoutX="635.0" layoutY="56.0" prefHeight="17.0" prefWidth="149.0" text="Prioritário" />
+            <ChoiceBox fx:id="snPrioritario" layoutX="628.0" layoutY="75.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="629.0" layoutY="56.0" prefHeight="17.0" prefWidth="65.0" text="Prioritário" />
             <Label layoutX="17.0" layoutY="366.0" prefHeight="17.0" prefWidth="183.0" text="Chamados associados ao usuário" />
             <TableView fx:id="grdChamado" layoutX="16.0" layoutY="389.0" prefHeight="142.0" prefWidth="771.0">
               <columns>
@@ -44,6 +44,8 @@
               </columns>
             </TableView>
             <Button layoutX="619.0" layoutY="539.0" mnemonicParsing="false" onAction="#chrome" prefHeight="25.0" prefWidth="79.0" text="A. Chrome" />
+            <Label fx:id="txtSnValidar" layoutX="714.0" layoutY="56.0" prefHeight="17.0" prefWidth="65.0" text="Validar" />
+            <ChoiceBox fx:id="snValidar" layoutX="714.0" layoutY="75.0" prefHeight="25.0" prefWidth="72.0" />
          </children>
     </AnchorPane>
   </children>

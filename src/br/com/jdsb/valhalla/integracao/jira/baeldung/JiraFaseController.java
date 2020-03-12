@@ -40,10 +40,8 @@ public class JiraFaseController {
 			 worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
 					.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
 			restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
-
+			break;
 		case 741:
-
-
 			 tInput = new TransitionInput(idTransition, lista, null);
 			restClient.getIssueClient().transition(issue, tInput).claim();
 
@@ -51,9 +49,7 @@ public class JiraFaseController {
 					.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
 			restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
 			break;
-
 		case 761:
-
 			 tInput = new TransitionInput(idTransition, null, null);
 			restClient.getIssueClient().transition(issue, tInput).claim();
 
@@ -66,7 +62,7 @@ public class JiraFaseController {
 				restClient.getIssueClient().transition(issue, tInput).claim();
 
 				worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
-						.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
+						.setComment("[~portal.cliente] ".concat(correcao.getDsObservacao())).setMinutesSpent(1).build();
 				restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
 			break;
 
