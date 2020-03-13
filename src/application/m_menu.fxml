@@ -35,6 +35,7 @@
           <items>
            <Menu mnemonicParsing="false" text="Jira" >
              <MenuItem mnemonicParsing="false" text="Chamados" onAction="#goChamado"/>
+             <MenuItem mnemonicParsing="false" text="Comentários" onAction="#goOrientacaoTicket"/>
              <MenuItem mnemonicParsing="false" text="Apontamento" onAction="#goApontamento"/>
              </Menu>
           </items>
@@ -47,6 +48,7 @@
             <MenuItem mnemonicParsing="false" text="Conexões" onAction="#goConexao"/>
             <MenuItem mnemonicParsing="false" text="Produtos" onAction="#goProdutos"/>
             <MenuItem mnemonicParsing="false" text="Versões" onAction="#goProdutos"/>
+             <MenuItem mnemonicParsing="false" text="Orientações" onAction="#goOrientacaoPadrao"/>
              <MenuItem mnemonicParsing="false" text="Usuários" onAction="#goUsuarios"/>
             </Menu>
              <Menu mnemonicParsing="false" text="Suprimentos" >

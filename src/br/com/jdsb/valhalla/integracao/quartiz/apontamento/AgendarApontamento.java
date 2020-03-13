@@ -30,7 +30,7 @@ public class AgendarApontamento {
             Trigger trigger = TriggerBuilder
                     .newTrigger()
                     .withIdentity("GerenciaApontamento")
-                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * * * ?")).build();
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/30 * * * ?")).build();
 
             sched.scheduleJob(job, trigger);
 

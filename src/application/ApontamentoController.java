@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.jdsb.valhalla.integracao.cmd.chrome.CMD;
 import br.com.jdsb.valhalla.integracao.jira.baeldung.JiraClient;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.chamado.DaoChamado;
@@ -41,8 +42,13 @@ public class ApontamentoController implements Initializable {
 		chamado = consultas.getChamadoPrincipal("jesse.bezerra");
 		if(chamado!=null){
 		  cdTicket.setValue(chamado.getCdTicket());
+		  vlPercConclusao.setValue(String.valueOf(chamado.getTotalPercentualConclusao()));
 		}
 		jiraClient = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br");
+	}
+
+	public void chrome(){
+		CMD.chamaChromeDoes(String.format("https://jira.mv.com.br/browse/%s", cdTicket.getValue()));
 	}
 
 	public void apontar() {

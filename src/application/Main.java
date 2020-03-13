@@ -25,8 +25,8 @@ public class Main extends Application {
 		            }
 		        });
 			try {
-				AgendarApontamento agendarApontamento = new AgendarApontamento();
-				agendarApontamento.schedule(primaryStage);
+//				AgendarApontamento agendarApontamento = new AgendarApontamento();
+//				agendarApontamento.schedule(primaryStage);
 				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_chamado.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
