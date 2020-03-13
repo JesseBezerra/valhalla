@@ -60,7 +60,7 @@ public class DaoOrientacaoPadrao implements Dao<OrientacaoPadrao> {
 			    pstmt.setString(1, condicao);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
-			    	retorno = (new OrientacaoPadrao(BigInteger.valueOf(rs.getInt("CD_ORIENTACAO_PADRAO")), rs.getString("DS_ORIENTACAO_PADRAO"), rs.getString("SN_ATIVO"), rs.getString("SN_PADRAO")));
+			    	retorno = (new OrientacaoPadrao(BigInteger.valueOf(rs.getInt("CD_ORIENTACAO_PADRAO")), rs.getString("NM_ORIENTACAO_PADRAO"), rs.getString("DS_ORIENTACAO_PADRAO"), rs.getString("SN_ATIVO")));
 			    }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -108,7 +108,7 @@ public class DaoOrientacaoPadrao implements Dao<OrientacaoPadrao> {
 
 	@Override
 	public void remover(OrientacaoPadrao t) {
-		String comando = "DELETE FROM ORIENTACAO_PADRAO WHERE ORIENTACAO_PADRAO = ? ";
+		String comando = "DELETE FROM ORIENTACAO_PADRAO WHERE CD_ORIENTACAO_PADRAO = ? ";
         try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
@@ -128,11 +128,11 @@ public class DaoOrientacaoPadrao implements Dao<OrientacaoPadrao> {
 	}
 
 	public static void main(String[] args) {
-            DaoOrientacaoPadrao daoOrientacaoPadrao = new DaoOrientacaoPadrao();
-            daoOrientacaoPadrao.criarTabela();
+	    DaoOrientacaoPadrao daoOrientacaoPadrao = new DaoOrientacaoPadrao();
+        daoOrientacaoPadrao.criarTabela();
 
-            DaoOrientacaoTicket daoOrientacaoTicket = new DaoOrientacaoTicket();
-            daoOrientacaoTicket.criarTabela();
+        DaoOrientacaoTicket daoOrientacaoTicket = new DaoOrientacaoTicket();
+        daoOrientacaoTicket.criarTabela();
 	}
 
 

@@ -36,6 +36,7 @@ public class OrientacaoTicketController implements Initializable {
 		daoOTicket = new DaoOrientacaoTicket();
 		daoOPadrao = new DaoOrientacaoPadrao();
 		client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
+        carregaOptionObjetos();
 
 		this.tpOrientacaoPadrao.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
@@ -44,7 +45,13 @@ public class OrientacaoTicketController implements Initializable {
 
 				String nmUsuario = optionsOrientacaoPadrao.get(new_value.intValue());
 				OrientacaoPadrao orientacaoPadrao = daoOPadrao.consultar(nmUsuario);
-				dsOrientacaoPadrao.setText(orientacaoPadrao.getDsOrientacaoPadrao());
+				String orientacaoAnterior = dsOrientacaoPadrao.getText();
+				if(orientacaoAnterior!=null && !orientacaoAnterior.isEmpty() && orientacaoAnterior.length()>2){
+					dsOrientacaoPadrao.setText(orientacaoAnterior.concat("\n").concat(orientacaoPadrao.getDsOrientacaoPadrao()));
+				}else{
+					dsOrientacaoPadrao.setText(orientacaoPadrao.getDsOrientacaoPadrao());
+				}
+
 			}
 		});
 
