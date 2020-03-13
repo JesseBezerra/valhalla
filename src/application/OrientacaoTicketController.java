@@ -61,7 +61,7 @@ public class OrientacaoTicketController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
 					try {
-						if (cdTicket != null && !cdTicket.getText().isEmpty()) {
+						if (cdTicket != null && !cdTicket.getText().isEmpty() && cdTicket.getText().length()>2) {
 							issue = client.getIssue(cdTicket.getText());
 							dsTitulo.setText(issue.getSummary());
 
@@ -106,6 +106,7 @@ public class OrientacaoTicketController implements Initializable {
 		for (OrientacaoPadrao usuario : daoOPadrao.listar()) {
 			optionsOrientacaoPadrao.add(usuario.getNmOrientacaoPadrao());
 		}
+		optionsOrientacaoPadrao.add("");
 		tpOrientacaoPadrao.setItems(optionsOrientacaoPadrao);
 	}
 
