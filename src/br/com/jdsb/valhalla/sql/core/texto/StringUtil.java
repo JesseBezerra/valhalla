@@ -20,10 +20,10 @@ public class StringUtil {
 												"--<USUARIO=DBAMV>	                                                                                    \n\n";
 	public final String CONSTANTE_CONEXAO =  "#CONFIGURAR CONEXAO ECLIPSE (ARQUIVO appdatalayer)                                                                                                                           \n"+
 			                                 "#%s                                                                                                                                                                          \n"+
-											 "connectionSettings.host=%s:%s                                                                                                                                                \n"+
-											 "connectionSettings.password=%s                                                                                                                                               \n"+
-											 "connectionSettings.user=%s                                                                                                                                                   \n"+
-											 "connectionSettings.database=%s                                                                                                                                               \n"+
+											 "connectionSettings.host=%s:%s\n"+
+											 "connectionSettings.password=%s\n"+
+											 "connectionSettings.user=%s\n"+
+											 "connectionSettings.database=%s\n"+
 											 "connectionSettings.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=%s)(PORT=%s)))(CONNECT_DATA\\=(SERVICE_NAME\\=${connectionSettings.database})))";
 
 	public String converteData(Date dtData) throws ParseException{
