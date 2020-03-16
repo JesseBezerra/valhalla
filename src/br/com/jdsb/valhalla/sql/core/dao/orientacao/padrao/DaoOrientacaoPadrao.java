@@ -90,7 +90,7 @@ public class DaoOrientacaoPadrao implements Dao<OrientacaoPadrao> {
 
 	@Override
 	public void atualizar(OrientacaoPadrao t) {
-		String comando = "UPDATE OBJETO SET NM_ORIENTACAO_PADRAO = ? ,DS_ORIENTACAO_PADRAO = ?,SN_ATIVO = ? WHERE ORIENTACAO_PADRAO = ? ";
+		String comando = "UPDATE ORIENTACAO_PADRAO SET NM_ORIENTACAO_PADRAO = ? ,DS_ORIENTACAO_PADRAO = ?,SN_ATIVO = ? WHERE CD_ORIENTACAO_PADRAO = ? ";
         try {
 			Connection connection = ConexaoLite.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
