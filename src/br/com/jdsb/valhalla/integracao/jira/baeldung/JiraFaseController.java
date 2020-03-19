@@ -71,4 +71,42 @@ public class JiraFaseController {
 		}
 	}
 
+	public void mudarFaseSupri(int idTransition, Issue issue,Chamado correcao) {
+		TransitionInput tInput =null;
+		WorklogInput worklogInput = null;
+		final FieldInput fieldInput = new FieldInput("customfield_12313", ComplexIssueInputFieldValue.with("value", "Dúvida"));
+        List<FieldInput> lista = new ArrayList<FieldInput>();
+        lista.add(fieldInput);
+
+		switch (idTransition) {
+		case 11:
+			 tInput = new TransitionInput(idTransition, lista, null);
+			restClient.getIssueClient().transition(issue, tInput).claim();
+			 worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
+					.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
+			restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
+			break;
+		case 21:
+			 tInput = new TransitionInput(idTransition, lista, null);
+			restClient.getIssueClient().transition(issue, tInput).claim();
+
+			 worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
+					.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
+			restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
+			break;
+
+		case 151:
+			 tInput = new TransitionInput(idTransition, lista, null);
+			restClient.getIssueClient().transition(issue, tInput).claim();
+
+			 worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
+					.setComment(correcao.getDsObservacao()).setMinutesSpent(1).build();
+			restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
+			break;
+
+		default:
+			break;
+		}
+	}
+
 }

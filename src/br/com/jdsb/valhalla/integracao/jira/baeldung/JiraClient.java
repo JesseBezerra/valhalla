@@ -1,12 +1,17 @@
 package br.com.jdsb.valhalla.integracao.jira.baeldung;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
+import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Transition;
+import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
+import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
 
@@ -94,6 +99,21 @@ public class JiraClient {
 	    }
 	}
 
+
+	public void atualizarReleaseNotes(Chamado correcao){
+		Promise<Issue> promiseIssue = restClient.getIssueClient().getIssue(correcao.getCdTicket());
+		IssueRestClient irc = restClient.getIssueClient();
+		Map<String, FieldInput> valMap = new HashMap<String, FieldInput>();
+		String texto = "LOCALIZAÇÃO:\n\nOCORRÊNCIA:\n\nALTERAÇÃO:\n\nTICKETS RELACIONADOS:";
+		valMap.put("customfield_12313", new FieldInput("customfield_12313", texto));
+
+		IssueInput ii = new IssueInput(valMap);
+		irc.updateIssue(correcao.getCdTicket(), ii).claim();
+
+	}
+
+
+
 	public void apontarAtividade(Chamado correcao,String comentario){
 		JiraApontamentoController apontamentoController = new JiraApontamentoController(restClient);
 		apontamentoController.realizarApontamento(correcao, comentario);
@@ -103,9 +123,11 @@ public class JiraClient {
 	public static void main(String[] args) {
 		JiraClient client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
 		DaoChamado dao = new DaoChamado();
-		Chamado chamado = dao.consultar("CIMP-14725");
-		client.validarTicket(chamado);
+		Chamado chamado = dao.consultar("SUPRI-15874");
+		client.atualizarReleaseNotes(chamado);
 	}
+
+
 
 
 }
