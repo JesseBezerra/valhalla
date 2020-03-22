@@ -18,13 +18,13 @@
          <children>
             <Label fx:id="lbPonto" layoutX="822.0" layoutY="5.0" prefHeight="17.0" prefWidth="179.0" text="Ponto:" />
             <TextField fx:id="dtPontoInic" layoutX="822.0" layoutY="23.0" prefHeight="25.0" prefWidth="113.0" />
-            <Button fx:id="btnIniciar" layoutX="941.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Iniciar" />
+            <Button fx:id="btnIniciar" layoutX="941.0" layoutY="23.0" mnemonicParsing="false" onAction="#iniciar" prefHeight="25.0" prefWidth="60.0" text="Iniciar" />
             <TextField fx:id="dtPontoAlmoco" layoutX="822.0" layoutY="51.0" prefHeight="25.0" prefWidth="113.0" />
-            <Button fx:id="btnAlmoco" layoutX="941.0" layoutY="51.0" mnemonicParsing="false" prefWidth="60.0" text="Almoço" />
+            <Button fx:id="btnAlmoco" layoutX="941.0" layoutY="51.0" mnemonicParsing="false" onAction="#almoco" prefWidth="60.0" text="Almoço" />
             <TextField fx:id="dtPontoVolta" layoutX="822.0" layoutY="80.0" prefHeight="25.0" prefWidth="113.0" />
-            <Button fx:id="btnVoltaAlmoco" layoutX="941.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Volta" />
+            <Button fx:id="btnVoltaAlmoco" layoutX="941.0" layoutY="80.0" mnemonicParsing="false" onAction="#volta" prefHeight="25.0" prefWidth="60.0" text="Volta" />
             <TextField fx:id="dtPontoFinaliza" layoutX="822.0" layoutY="109.0" prefHeight="25.0" prefWidth="113.0" />
-            <Button fx:id="btnFinalizarPonto" layoutX="941.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Finalizar" />
+            <Button fx:id="btnFinalizarPonto" layoutX="941.0" layoutY="109.0" mnemonicParsing="false" onAction="#finalizar" prefHeight="25.0" prefWidth="60.0" text="Finalizar" />
             <Separator layoutX="810.0" layoutY="145.0" prefWidth="200.0" />
             <Separator layoutX="808.0" layoutY="6.0" orientation="VERTICAL" prefHeight="139.0" />
             <Separator layoutX="809.0" layoutY="5.0" prefWidth="200.0" />

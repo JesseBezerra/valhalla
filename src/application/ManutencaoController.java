@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import br.com.jdsb.valhalla.sql.core.dao.ponto.DaoPonto;
+import br.com.jdsb.valhalla.sql.objects.ponto.Ponto;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -27,25 +29,49 @@ public class ManutencaoController implements Initializable {
 	@FXML
 	private TextField dtPontoFinaliza;
 
+	private DaoPonto dao;
+
+	public void iniciar() {
+      Ponto ponto = new Ponto();
+      ponto.setDtInicPonto(new Date());
+      ponto.setDtAlmocoPonto(new Date());
+      ponto.setDtVoltaPonto(new Date());
+      ponto.setDtFimPonto(new Date());
+      ponto.setCdUsuario("jesse.bezerra");
+      dao.salvar(ponto);
+	}
+
+	public void volta() {
+
+	}
+
+	public void almoco() {
+
+	}
+
+	public void finalizar() {
+
+	}
 
 	private SimpleDateFormat formatador = new SimpleDateFormat("HH:mm:ss");
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//lbPonto.setEffect(new DropShadow(10, Color.RED));
+		// lbPonto.setEffect(new DropShadow(10, Color.RED));
 
-		// agora ligamos um loop infinito que roda a cada segundo e atualiza nosso label chamando atualizaHoras.
+		// agora ligamos um loop infinito que roda a cada segundo e atualiza
+		// nosso label chamando atualizaHoras.
 		KeyFrame frame = new KeyFrame(Duration.millis(1000), e -> atualizaHoras());
 		Timeline timeline = new Timeline(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 
+		dao = new DaoPonto();
 	}
 
 	private void atualizaHoras() {
 		Date agora = new Date();
-		lbPonto.setText("Ponto "+formatador.format(agora) );
-
+		lbPonto.setText("Ponto " + formatador.format(agora));
 
 	}
 
