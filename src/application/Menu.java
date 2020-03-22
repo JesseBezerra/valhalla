@@ -205,6 +205,22 @@ public class Menu implements Initializable {
 		}
 	}
 
+	public void goManutencao() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_manutencao.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+
+			Stage stage = new Stage();
+			stage.setTitle("Empacotador v2.0 (Cad. Usuários) - Beta");
+			stage.setResizable(false);
+			stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
+			stage.setScene(new Scene(root1));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

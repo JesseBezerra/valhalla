@@ -123,7 +123,9 @@ public class JiraClient {
 	public static void main(String[] args) {
 		JiraClient client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
 		DaoChamado dao = new DaoChamado();
-		Chamado chamado = dao.consultar("SUPRI-15874");
+		Chamado chamado = new Chamado();
+		chamado.setCdTicket("SUPRI-15929");
+				//dao.consultar("SUPRI-15929");
 		client.atualizarReleaseNotes(chamado);
 	}
 

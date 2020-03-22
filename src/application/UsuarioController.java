@@ -31,6 +31,18 @@ public class UsuarioController implements Initializable {
        snAtivo.setValue("Sim");
        dao = new DaoUsuario();
        carregarDados();
+
+       grdUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				Usuario chamado = new Usuario();
+				chamado = grdUsuario.getSelectionModel().getSelectedItem();
+				cdUsuario.setText(chamado.getCdUsuario());
+				nmUsuario.setText(chamado.getNmUsuario());
+				tpPerfil.setValue(chamado.getTpPerfil());
+				snAtivo.setValue(chamado.getSnAtivo());
+
+			}
+		});
 	}
 
 	@FXML
@@ -84,7 +96,7 @@ public class UsuarioController implements Initializable {
        usuario.setTpPerfil(tpPerfil.getValue());
        usuario.setSnAtivo(snAtivo.getValue());
 
-       Usuario validar = dao.consultar(nmUsuario.getText());
+       Usuario validar = dao.consultar(cdUsuario.getText());
        if(validar!=null){
     	   dao.atualizar(usuario);
        }else{

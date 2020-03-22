@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
+import br.com.jdsb.valhalla.sql.core.connection.ConnectionMysql;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
 
@@ -22,7 +23,7 @@ public class DaoUsuario implements Dao<Usuario> {
 	public void criarTabela() {
 		String comando = "CREATE TABLE IF NOT EXISTS USUARIO (CD_USUARIO VARCHAR PRIMARY KEY,NM_USUARIO VARCHAR,TP_USUARIO VARCHAR , SN_ATIVO VARCHAR) ";
         try {
-			Connection connection = ConexaoLite.getConnection();
+			Connection connection = ConnectionMysql.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
 		    pstmt.execute();
 		} catch (SQLException e) {
@@ -36,7 +37,7 @@ public class DaoUsuario implements Dao<Usuario> {
 	public void salvar(Usuario t) {
 		String comando = "INSERT INTO USUARIO(CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO) VALUES (?,?,?,?)";
         try {
-			Connection connection = ConexaoLite.getConnection();
+			Connection connection = ConnectionMysql.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
 		    pstmt.setString(1, t.getCdUsuario());
 		    pstmt.setString(2, t.getNmUsuario());
@@ -55,7 +56,7 @@ public class DaoUsuario implements Dao<Usuario> {
 		   Usuario retorno = null;
 	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO WHERE CD_USUARIO = ?";
 	      try {
-				Connection connection = ConexaoLite.getConnection();
+				Connection connection = ConnectionMysql.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    pstmt.setString(1, condicao);
 			    ResultSet rs = pstmt.executeQuery();
@@ -75,7 +76,7 @@ public class DaoUsuario implements Dao<Usuario> {
 		List<Usuario> retorno = new ArrayList<Usuario>();
 	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO";
 	      try {
-				Connection connection = ConexaoLite.getConnection();
+				Connection connection = ConnectionMysql.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
@@ -93,7 +94,7 @@ public class DaoUsuario implements Dao<Usuario> {
 	public void atualizar(Usuario t) {
 		String comando = "UPDATE USUARIO SET NM_USUARIO = ?, TP_USUARIO = ?, SN_ATIVO = ? WHERE CD_USUARIO = ? ";
         try {
-			Connection connection = ConexaoLite.getConnection();
+			Connection connection = ConnectionMysql.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
 		    pstmt.setString(1, t.getNmUsuario());
 		    pstmt.setString(2, t.getTpPerfil());
@@ -111,7 +112,7 @@ public class DaoUsuario implements Dao<Usuario> {
 	public void remover(Usuario t) {
 		String comando = "DELETE FROM USUARIO WHERE CD_USUARIO = ? ";
         try {
-			Connection connection = ConexaoLite.getConnection();
+			Connection connection = ConnectionMysql.getConnection();
 		    PreparedStatement pstmt = connection.prepareStatement(comando);
 		    pstmt.setString(1, t.getCdUsuario());
 		    pstmt.execute();
