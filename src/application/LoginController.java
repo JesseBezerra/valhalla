@@ -3,17 +3,26 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.atlassian.jira.rest.client.api.domain.Issue;
+
+import br.com.jdsb.valhalla.integracao.jira.baeldung.JiraClient;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.dao.usuario.DaoUsuario;
 import br.com.jdsb.valhalla.sql.core.jfx.dialog.Dialogs;
 import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
@@ -52,7 +61,38 @@ public class LoginController implements Initializable {
 			cdSenha.clear();
 			Dialogs.AletaW("Atenção", "Usuário ou senha inválidos", "Verifique o cadastro do usuário");
 		}
+		try {
 
+		JiraClient client = new JiraClient(usuario.getCdUsuario(), cdSenha.getText(), "https://jira.mv.com.br/");
+		Issue issue = client.getIssue("CIMP-14942");
+		if(issue!=null){
+            Estatica.usuario = usuario;
+            Estatica.jiraClient = client;
+            chamaForm();
+            cdUsuario.getScene().getWindow().hide();
+		}
+
+		} catch (Exception e) {
+			Dialogs.AletaE("Atenção", "Ocorreu um erro ao se antenticar no jira", e.getLocalizedMessage());
+		}
+
+
+	}
+
+	public void chamaForm() {
+		try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_manutencao.fxml"));
+	        Parent root1 = (Parent) fxmlLoader.load();
+	        Stage stage = new Stage();
+	        stage.setTitle("Manutenção ");
+	        stage.setResizable(false);
+	        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("nave.png")));
+	        stage.setScene(new Scene(root1));
+	        stage.initModality(Modality.WINDOW_MODAL);
+	        stage.show();
+	        } catch(Exception e) {
+	           e.printStackTrace();
+	        }
 	}
 
 

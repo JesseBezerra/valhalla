@@ -19,6 +19,14 @@ public class Dialogs {
 		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("nave.png")));
 		alert.showAndWait();
 	}
+	public static void AletaE(String titulo,String mensagem,String acao) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(titulo);
+		alert.setHeaderText(mensagem);
+		alert.setContentText(acao);
+		((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(new Dialogs().getClass().getResourceAsStream("nave.png")));
+		alert.showAndWait();
+	}
 
 	public static void AletaI(String titulo,String mensagem,String acao) {
 		Alert alert = new Alert(AlertType.INFORMATION);

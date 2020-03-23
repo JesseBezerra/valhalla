@@ -9,7 +9,9 @@ import com.atlassian.jira.rest.client.api.IssueRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Comment;
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
 import com.atlassian.jira.rest.client.api.domain.Transition;
+import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
@@ -105,9 +107,12 @@ public class JiraClient {
 		IssueRestClient irc = restClient.getIssueClient();
 		Map<String, FieldInput> valMap = new HashMap<String, FieldInput>();
 		String texto = "LOCALIZAÇÃO:\n\nOCORRÊNCIA:\n\nALTERAÇÃO:\n\nTICKETS RELACIONADOS:";
-		valMap.put("customfield_12313", new FieldInput("customfield_12313", texto));
-
+		//valMap.put("customfield_12313", new FieldInput("customfield_12313", texto));
+		//valMap.put("customfield_12313", new FieldInput("customfield_12313", texto));
+		valMap.put("assignee", new FieldInput(IssueFieldId.ASSIGNEE_FIELD, ComplexIssueInputFieldValue.with("name",
+                "jesse.bezerra")));
 		IssueInput ii = new IssueInput(valMap);
+
 		irc.updateIssue(correcao.getCdTicket(), ii).claim();
 
 	}
@@ -117,14 +122,28 @@ public class JiraClient {
 	public void apontarAtividade(Chamado correcao,String comentario){
 		JiraApontamentoController apontamentoController = new JiraApontamentoController(restClient);
 		apontamentoController.realizarApontamento(correcao, comentario);
+	}
 
+	public void apontarAtividade(Chamado correcao,String comentario, int minutos){
+		JiraApontamentoController apontamentoController = new JiraApontamentoController(restClient);
+		apontamentoController.realizarApontamento(correcao, comentario,minutos);
+	}
+
+	public void assumirTicket(Chamado chamado){
+		IssueRestClient irc = restClient.getIssueClient();
+		Map<String, FieldInput> valMap = new HashMap<String, FieldInput>();
+			valMap.put("assignee", new FieldInput(IssueFieldId.ASSIGNEE_FIELD, ComplexIssueInputFieldValue.with("name",
+                chamado.getCdUsuario())));
+		IssueInput ii = new IssueInput(valMap);
+
+		irc.updateIssue(chamado.getCdTicket(), ii).claim();
 	}
 
 	public static void main(String[] args) {
 		JiraClient client = new JiraClient("jesse.bezerra", "N@ruto2019", "https://jira.mv.com.br/");
 		DaoChamado dao = new DaoChamado();
 		Chamado chamado = new Chamado();
-		chamado.setCdTicket("SUPRI-15929");
+		chamado.setCdTicket("CIMP-12827");
 				//dao.consultar("SUPRI-15929");
 		client.atualizarReleaseNotes(chamado);
 	}

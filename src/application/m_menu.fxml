@@ -12,17 +12,17 @@
         <Menu mnemonicParsing="false" text="Ações">
           <items>
             <MenuItem mnemonicParsing="false" text="Novo"/>
-             <Menu mnemonicParsing="false" text="Objetos de Dados" >
-             <MenuItem mnemonicParsing="false" text="Coluna" />
-             <MenuItem mnemonicParsing="false" text="Sequence" />
-             <MenuItem mnemonicParsing="false" text="Tabela" />
+             <Menu mnemonicParsing="false" visible="#isVisible" text="Objetos de Dados" >
+             <MenuItem mnemonicParsing="false" visible="#isVisible" text="Coluna" />
+             <MenuItem mnemonicParsing="false" visible="#isVisible" text="Sequence" />
+             <MenuItem mnemonicParsing="false" visible="#isVisible" text="Tabela" />
             </Menu>
              <Menu mnemonicParsing="false" text="Objetos de Teste" >
-             <MenuItem mnemonicParsing="false" text="Produtos Suprimentos" onAction="#goProdutoSupri"/>
+             <MenuItem mnemonicParsing="false"  visible="#isVisible" text="Produtos Suprimentos" onAction="#goProdutoSupri"/>
              </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Exportar" />
-            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" visible="#isVisible" text="Exportar" />
+            <MenuItem mnemonicParsing="false" visible="#isVisible" text="Save" />
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -34,26 +34,26 @@
         <Menu mnemonicParsing="false" text="Integrações">
           <items>
            <Menu mnemonicParsing="false" text="Jira" >
-             <MenuItem mnemonicParsing="false" text="Chamados" onAction="#goChamado"/>
-             <MenuItem mnemonicParsing="false" text="Manutenção" onAction="#goManutencao"/>
-             <MenuItem mnemonicParsing="false" text="Comentários" onAction="#goOrientacaoTicket"/>
-             <MenuItem mnemonicParsing="false" text="Apontamento" onAction="#goApontamento"/>
+             <MenuItem mnemonicParsing="false" text="Chamados" visible="#isVisible" onAction="#goChamado"/>
+             <MenuItem mnemonicParsing="false" text="Manutenção"  onAction="#goManutencao"/>
+             <MenuItem mnemonicParsing="false" text="Comentários" visible="#isVisible" onAction="#goOrientacaoTicket"/>
+             <MenuItem mnemonicParsing="false" text="Apontamento" visible="#isVisible" onAction="#goApontamento"/>
              </Menu>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Configurações">
           <items>
            <Menu mnemonicParsing="false" text="Cadastros" >
-            <MenuItem mnemonicParsing="false" text="Objetos" onAction="#goObjetos"/>
-            <MenuItem mnemonicParsing="false" text="Prefixos" onAction="#goPrefixos"/>
-            <MenuItem mnemonicParsing="false" text="Conexões" onAction="#goConexao"/>
-            <MenuItem mnemonicParsing="false" text="Produtos" onAction="#goProdutos"/>
-            <MenuItem mnemonicParsing="false" text="Versões" onAction="#goProdutos"/>
-             <MenuItem mnemonicParsing="false" text="Orientações" onAction="#goOrientacaoPadrao"/>
-             <MenuItem mnemonicParsing="false" text="Usuários" onAction="#goUsuarios"/>
+            <MenuItem mnemonicParsing="false" text="Objetos" visible="#isVisible" onAction="#goObjetos"/>
+            <MenuItem mnemonicParsing="false" text="Prefixos" visible="#isVisible" onAction="#goPrefixos"/>
+            <MenuItem mnemonicParsing="false" text="Conexões" visible="#isVisible" onAction="#goConexao"/>
+            <MenuItem mnemonicParsing="false" text="Produtos" visible="#isVisible" onAction="#goProdutos"/>
+            <MenuItem mnemonicParsing="false" text="Versões" visible="#isVisible" onAction="#goProdutos"/>
+             <MenuItem mnemonicParsing="false" text="Orientações" visible="#isVisible" onAction="#goOrientacaoPadrao"/>
+             <MenuItem mnemonicParsing="false" text="Usuários" visible="#isVisible" onAction="#goUsuarios"/>
             </Menu>
              <Menu mnemonicParsing="false" text="Suprimentos" >
-                     <MenuItem mnemonicParsing="false" text="Configurações" onAction="#goConfigSupri"/>
+                     <MenuItem mnemonicParsing="false" text="Configurações" visible="#isVisible" onAction="#goConfigSupri"/>
              </Menu>
           </items>
         </Menu>

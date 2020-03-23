@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.jdsb.valhalla.integracao.quartiz.apontamento.AgendarApontamento;
+import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,15 @@ import javafx.stage.WindowEvent;
 
 public class Menu implements Initializable {
 
+	private Usuario usuario;
+
+	public boolean isVisible(){
+        boolean retorno = false;
+		if(usuario!=null){
+			retorno = usuario.getTpPerfil().toUpperCase().equals("ADM");
+        }
+		return retorno;
+	}
 	public void goObjetos() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("m_objeto.fxml"));
@@ -223,8 +233,7 @@ public class Menu implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+      this.usuario = Estatica.usuario;
 	}
 
 }

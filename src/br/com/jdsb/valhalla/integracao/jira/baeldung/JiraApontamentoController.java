@@ -41,4 +41,19 @@ public class JiraApontamentoController {
 				.setComment(comentarioFinal).setMinutesSpent(60).build();
 		restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
 	}
+
+	public void realizarApontamento(Chamado correcao,String comentario,int qtdMinutos){
+		Promise<Issue> promiseIssue = restClient.getIssueClient().getIssue(correcao.getCdTicket());
+		Issue issue = promiseIssue.claim();
+		WorklogInput worklogInput = null;
+		String comentarioFinal = "Apontamento de atividades registrado por %s";
+		if(comentario!=null){
+			comentarioFinal = comentarioFinal.concat(".\n").concat(comentario);
+		}
+		comentarioFinal = String.format(comentarioFinal, correcao.getCdUsuario(), correcao.getTotalPercentualConclusao());
+
+		worklogInput = new WorklogInputBuilder(issue.getSelf()).setStartDate(new DateTime())
+				.setComment(comentarioFinal).setMinutesSpent(qtdMinutos).build();
+		restClient.getIssueClient().addWorklog(issue.getWorklogUri(), worklogInput);
+	}
 }

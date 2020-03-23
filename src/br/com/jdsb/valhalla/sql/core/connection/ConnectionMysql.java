@@ -10,7 +10,8 @@ public class ConnectionMysql {
 
 	public static Connection getConnection() throws SQLException{
       if(connection==null || connection.isClosed()){
-    	  connection = DriverManager.getConnection("jdbc:mysql://213.190.6.169:3306/u175132392_empacotador", "u175132392_empacotador", "francisco18");
+    	  DriverManager.setLoginTimeout(10);
+    	  connection = DriverManager.getConnection("jdbc:mysql://213.190.6.169:3306/u175132392_empacotador?autoReconnect=true&connectTimeout=5000&socketTimeout=30000", "u175132392_empacotador", "francisco18");
       }
 
       return connection;

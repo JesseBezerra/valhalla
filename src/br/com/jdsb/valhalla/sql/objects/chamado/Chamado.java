@@ -2,6 +2,7 @@ package br.com.jdsb.valhalla.sql.objects.chamado;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class Chamado implements Serializable, Comparable<Chamado> {
 
@@ -29,6 +30,8 @@ public class Chamado implements Serializable, Comparable<Chamado> {
 	private String snPrioritario;
 
 	private String nrOrdemPrioridade;
+
+	private Date dtUltimaIntervencao;
 
 	public String getCdTicket() {
 		return cdTicket;
@@ -166,6 +169,16 @@ public class Chamado implements Serializable, Comparable<Chamado> {
 		this.nrOrdemPrioridade = nrOrdemPrioridade;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Chamado [cdTicket=" + cdTicket + ", dsTicket=" + dsTicket + ", cdUsuario=" + cdUsuario
+				+ ", dsObservacao=" + dsObservacao + ", snAtivo=" + snAtivo + ", totalMinutosTrabalhados="
+				+ totalMinutosTrabalhados + ", totalPercentualConclusao=" + totalPercentualConclusao
+				+ ", cdTicketAssociado=" + cdTicketAssociado + ", snPrioritario=" + snPrioritario
+				+ ", nrOrdemPrioridade=" + nrOrdemPrioridade + ", dtUltimaIntervencao=" + dtUltimaIntervencao + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -175,6 +188,7 @@ public class Chamado implements Serializable, Comparable<Chamado> {
 		result = prime * result + ((cdUsuario == null) ? 0 : cdUsuario.hashCode());
 		result = prime * result + ((dsObservacao == null) ? 0 : dsObservacao.hashCode());
 		result = prime * result + ((dsTicket == null) ? 0 : dsTicket.hashCode());
+		result = prime * result + ((dtUltimaIntervencao == null) ? 0 : dtUltimaIntervencao.hashCode());
 		result = prime * result + ((nrOrdemPrioridade == null) ? 0 : nrOrdemPrioridade.hashCode());
 		result = prime * result + ((snAtivo == null) ? 0 : snAtivo.hashCode());
 		result = prime * result + ((snPrioritario == null) ? 0 : snPrioritario.hashCode());
@@ -217,6 +231,11 @@ public class Chamado implements Serializable, Comparable<Chamado> {
 				return false;
 		} else if (!dsTicket.equals(other.dsTicket))
 			return false;
+		if (dtUltimaIntervencao == null) {
+			if (other.dtUltimaIntervencao != null)
+				return false;
+		} else if (!dtUltimaIntervencao.equals(other.dtUltimaIntervencao))
+			return false;
 		if (nrOrdemPrioridade == null) {
 			if (other.nrOrdemPrioridade != null)
 				return false;
@@ -245,13 +264,12 @@ public class Chamado implements Serializable, Comparable<Chamado> {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Chamado [cdTicket=" + cdTicket + ", dsTicket=" + dsTicket + ", cdUsuario=" + cdUsuario
-				+ ", dsObservacao=" + dsObservacao + ", snAtivo=" + snAtivo + ", totalMinutosTrabalhados="
-				+ totalMinutosTrabalhados + ", totalPercentualConclusao=" + totalPercentualConclusao
-				+ ", cdTicketAssociado=" + cdTicketAssociado + ", snPrioritario=" + snPrioritario
-				+ ", nrOrdemPrioridade=" + nrOrdemPrioridade + "]";
+	public Date getDtUltimaIntervencao() {
+		return dtUltimaIntervencao;
+	}
+
+	public void setDtUltimaIntervencao(Date dtUltimaIntervencao) {
+		this.dtUltimaIntervencao = dtUltimaIntervencao;
 	}
 
 

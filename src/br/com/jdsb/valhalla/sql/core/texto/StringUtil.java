@@ -38,6 +38,12 @@ public class StringUtil {
 		return result;
     }
 
+	public String converteDataParametro(Date dtData){
+		SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+		String result = out.format(dtData);
+		return result;
+    }
+
 	public StringBuilder cabecalho(String supri, String descricao,String produto,String owner, String tabela) throws ParseException{
 		StringBuilder retorno = new StringBuilder();
 		retorno = retorno.append(String.format(CONSTANTE_CABECALHO, supri,descricao,converteDataCabecalho(new Date()),produto,owner,tabela));
