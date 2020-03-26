@@ -1,6 +1,5 @@
 package application;
 
-import java.math.BigInteger;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +8,6 @@ import java.util.ResourceBundle;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 
 import br.com.jdsb.valhalla.integracao.cmd.chrome.CMD;
-import br.com.jdsb.valhalla.integracao.jira.baeldung.JiraApontamentoController;
 import br.com.jdsb.valhalla.integracao.jira.baeldung.JiraClient;
 import br.com.jdsb.valhalla.sql.core.dao.chamado.DaoChamado;
 import br.com.jdsb.valhalla.sql.core.dao.ponto.DaoPonto;
@@ -20,6 +18,7 @@ import br.com.jdsb.valhalla.sql.objects.ponto.Ponto;
 import br.com.jdsb.valhalla.sql.objects.usuario.Usuario;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -53,6 +52,10 @@ public class ManutencaoController implements Initializable {
 	@FXML
 	private TextField dsTitulo;
 	@FXML
+	private TextField qtdHorasJira;
+	@FXML
+	private TextField qtdMinutosJira;
+	@FXML
 	private TextField dsSituacao;
 	@FXML
 	private TextArea dsObservacao;
@@ -68,19 +71,19 @@ public class ManutencaoController implements Initializable {
 	private ChoiceBox<String> cdVercao;
 	@FXML
 	private ChoiceBox<String> cdModulo;
-	ObservableList<String> optionsTime = FXCollections.observableArrayList("Minutos", "Horas","");
+	ObservableList<String> optionsTime = FXCollections.observableArrayList("Minutos", "Horas");
 
 	private Issue issue;
 	private JiraClient client;
-    private Chamado chamado;
-    private Usuario usuario;
+	private Chamado chamado;
+	private Usuario usuario;
 
 	private DaoPonto dao;
 	private DaoChamado daoChamado;
 
 	public void iniciar() {
 		Ponto ponto = // new Ponto();
-				dao.consultar("jesse.bezerra", new Date());
+				dao.consultar(usuario.getCdUsuario(), new Date());
 		if (ponto == null) {
 			ponto = new Ponto();
 			ponto.setDtInicPonto(new Date());
@@ -104,8 +107,6 @@ public class ManutencaoController implements Initializable {
 
 	@FXML
 	private TableColumn<Chamado, String> tbcDsTitulo;
-
-
 
 	public void volta() {
 		Ponto ponto = // new Ponto();
@@ -131,7 +132,8 @@ public class ManutencaoController implements Initializable {
 	}
 
 	private SimpleDateFormat formatador = new SimpleDateFormat("HH:mm:ss");
-    private StringUtil util;
+	private StringUtil util;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		util = new StringUtil();
@@ -155,9 +157,10 @@ public class ManutencaoController implements Initializable {
 					try {
 						if (cdTicket != null && !cdTicket.getText().isEmpty()) {
 							chamado = daoChamado.consultar(cdTicket.getText());
-							if(chamado==null){
+							if (chamado == null) {
 								chamado = new Chamado();
 								chamado.setCdTicket(cdTicket.getText());
+								chamado.setDsTicket(dsTitulo.getText());
 								chamado.setCdUsuario("sem.dono");
 								daoChamado.salvar(chamado);
 								chamado = daoChamado.consultar(cdTicket.getText());
@@ -193,6 +196,7 @@ public class ManutencaoController implements Initializable {
 		vlTempo.setItems(optionsTime);
 		vlTempo.setValue("Minutos");
 		carregarDados();
+		//carregar();
 	}
 
 	public void carregarPonto(Ponto ponto) {
@@ -222,16 +226,48 @@ public class ManutencaoController implements Initializable {
 
 	}
 
-	public void assumir(){
-      chamado.setDsTicket(dsTitulo.getText());
-      chamado.setDsObservacao(dsObservacao.getText());
-      chamado.setSnAtivo("Sim");
-      chamado.setSnPrioritario("Sim");
-      chamado.setCdUsuario(usuario.getCdUsuario());
-      daoChamado.atualizar(chamado);
-	  client.assumirTicket(chamado);
-	  carregarDados();
+	public void assumir() {
+		chamado.setDsTicket(dsTitulo.getText());
+		chamado.setDsObservacao(dsObservacao.getText());
+		chamado.setSnAtivo("Sim");
+		chamado.setSnPrioritario("Sim");
+		chamado.setCdUsuario(usuario.getCdUsuario());
+		daoChamado.atualizar(chamado);
+		client.assumirTicket(chamado);
+		carregarDados();
+		limpar();
 	}
+
+	public void atualizar() {
+		carregar();
+	}
+
+	public void carregar() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Integer minutos = client.getTempoApontado(usuario);
+					if (minutos != null) {
+						qtdMinutosJira.setText(minutos.toString());
+						qtdHorasJira.setText(converteMinutoHora(minutos));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public String converteMinutoHora(Integer qtdMinutos) {
+		String retorno = "";
+		int minutos = qtdMinutos % 60;
+		int horas = (qtdMinutos / 60);
+		retorno = (horas + ":" + minutos);
+		return retorno;
+
+	}
+
 	private ObservableList<Chamado> populateTable = FXCollections.observableArrayList();
 
 	private void carregarDados() {
@@ -257,43 +293,75 @@ public class ManutencaoController implements Initializable {
 
 	}
 
-	public void chrome(){
+	public void chrome() {
 		CMD.chamaChromeDoes(String.format("https://jira.mv.com.br/browse/%s", cdTicket.getText()));
 	}
 
-	public void limparTela(){
-
+	public void limparTela() {
+		limpar();
 	}
 
-	public void apontar(){
+	public void apontar() {
 
-		if(chamado==null){
-			Dialogs.AletaW("Atenção", "Não foi informando nenhum ticket valido","O ticket informado não é valido");
+		if (chamado == null) {
+			Dialogs.AletaW("Atenção", "Não foi informando nenhum ticket valido", "O ticket informado não é valido");
 		}
 
 		String valor = vlTempo.getValue();
 		int qtdMinutos = 0;
-		if(valor.toUpperCase().equals("MINUTOS")){
-			qtdMinutos =  tratarTempo(qtdTempo.getText());
-		}else if(valor.toUpperCase().equals("HORAS")){
-			qtdMinutos =  tratarTempo(qtdTempo.getText());
+		if (valor.toUpperCase().equals("MINUTOS")) {
+			qtdMinutos = tratarTempo(qtdTempo.getText());
+		} else if (valor.toUpperCase().equals("HORAS")) {
+			qtdMinutos = tratarTempo(qtdTempo.getText());
 			qtdMinutos = qtdMinutos * 60;
 		}
 		try {
-			 client.apontarAtividade(chamado, "Apontameno manual", qtdMinutos);
-			 Dialogs.AletaI("Atenção", "Ponto Resgistado com sucesso!","Ponto Resgistado com sucesso!");
+			chamado.setCdUsuario(usuario.getCdUsuario());
+			client.apontarAtividade(chamado, "Apontameno manual", qtdMinutos);
+			Dialogs.AletaI("Atenção", "Ponto Resgistado com sucesso!", "Ponto Resgistado com sucesso!");
+			apontarMinutos(qtdMinutos);
+			qtdTempo.clear();
 		} catch (Exception e) {
 			Dialogs.AletaE("Atenção", "Ocorreu um erro ao realiar o apontamento", e.getLocalizedMessage());
 		}
 
 	}
 
-	public void limparApontamento(){
+	public void apontarMinutos(int qtdMinutos) {
+		try {
+			int minutosJaApontados = 0;
+			if (qtdMinutosJira != null && qtdMinutosJira.getLength() > 1) {
+				minutosJaApontados = Integer.parseInt(qtdMinutosJira.getText());
+			} else {
+				minutosJaApontados = 0;
+			}
+			minutosJaApontados = minutosJaApontados + qtdMinutos;
+			Integer apontar = minutosJaApontados;
+			qtdMinutosJira.setText(apontar.toString());
+			qtdHorasJira.setText(converteMinutoHora(apontar));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void concluir() {
+		chamado.setSnAtivo("Não");
+		daoChamado.atualizar(chamado);
+		limpar();
+		carregarDados();
+	}
+
+	public void validar() {
+
+	}
+
+	public void limparApontamento() {
 		vlTempo.setValue("Minutos");
 		qtdTempo.clear();
 	}
 
-	public int tratarTempo(String tempo){
+	public int tratarTempo(String tempo) {
 		Integer retorno = 0;
 		try {
 			retorno = Integer.parseInt(tempo);
@@ -301,6 +369,15 @@ public class ManutencaoController implements Initializable {
 			Dialogs.AletaE("Atenção", "Formato informado é inválido", e.getLocalizedMessage());
 		}
 		return retorno;
+	}
+
+	public void limpar() {
+		cdTicket.clear();
+		dsTicket.clear();
+		dsObservacao.clear();
+		dsTitulo.clear();
+		dsSituacao.clear();
+
 	}
 
 }

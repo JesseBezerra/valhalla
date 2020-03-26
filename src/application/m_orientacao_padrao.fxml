@@ -10,28 +10,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrientacaoPadraoController">
+<VBox prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrientacaoPadraoController">
   <children>
      <fx:include fx:id="testePesquisa" source="m_menu.fxml" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <TextField fx:id="cdOrientacaoPadrao" disable="true" layoutX="14.0" layoutY="19.0" prefHeight="25.0" prefWidth="149.0" />
             <Label layoutX="14.0" layoutY="2.0" prefHeight="17.0" prefWidth="149.0" text="Código" />
-            <TextField fx:id="nmOrientacaoPadrao" layoutX="172.0" layoutY="18.0" prefHeight="25.0" prefWidth="529.0" />
+            <TextField fx:id="nmOrientacaoPadrao" layoutX="172.0" layoutY="18.0" prefHeight="25.0" prefWidth="758.0" />
             <Label layoutX="172.0" layoutY="1.0" prefHeight="17.0" prefWidth="149.0" text="Nome" />
-            <Label fx:id="txtSnValidar" layoutX="713.0" prefHeight="17.0" prefWidth="65.0" text="Ativo" />
-            <ChoiceBox fx:id="snAtivo" layoutX="712.0" layoutY="17.0" prefHeight="25.0" prefWidth="72.0" />
+            <Label fx:id="txtSnValidar" layoutX="937.0" layoutY="1.0" prefHeight="17.0" prefWidth="65.0" text="Ativo" />
+            <ChoiceBox fx:id="snAtivo" layoutX="936.0" layoutY="18.0" prefHeight="25.0" prefWidth="72.0" />
             <Label layoutX="14.0" layoutY="88.0" prefHeight="17.0" prefWidth="149.0" text="Orientação" />
-            <TextArea fx:id="dsOrientacaoPadrao" layoutX="13.0" layoutY="106.0" prefHeight="292.0" prefWidth="774.0" />
-            <TableView fx:id="grdOrientacaoPadrao" layoutX="14.0" layoutY="402.0" prefHeight="134.0" prefWidth="774.0">
+            <TextArea fx:id="dsOrientacaoPadrao" layoutX="13.0" layoutY="106.0" prefHeight="292.0" prefWidth="998.0" />
+            <TableView fx:id="grdOrientacaoPadrao" layoutX="14.0" layoutY="402.0" prefHeight="134.0" prefWidth="998.0">
               <columns>
                 <TableColumn fx:id="tbcCdOrientacaoPadrao" prefWidth="169.0" text="Código" />
-                <TableColumn fx:id="tbcNmOrientacaoPadrao" prefWidth="539.0" text="Nome" />
+                <TableColumn fx:id="tbcNmOrientacaoPadrao" prefWidth="762.0" text="Nome" />
                   <TableColumn fx:id="tbcSnAtivo" prefWidth="65.0" text="Ativo" />
               </columns>
             </TableView>
             <Button layoutX="104.0" layoutY="541.0" mnemonicParsing="false" onAction="#remover" prefHeight="25.0" prefWidth="79.0" text="Remover" />
-            <Button layoutX="708.0" layoutY="541.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="79.0" text="Salvar" />
+            <Button layoutX="933.0" layoutY="541.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="79.0" text="Salvar" />
             <Button layoutX="14.0" layoutY="541.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="79.0" text="Limpar" />
             <ChoiceBox fx:id="tpConexao" layoutX="14.0" layoutY="61.0" prefHeight="25.0" prefWidth="207.0" />
             <Label layoutX="14.0" layoutY="44.0" prefHeight="17.0" prefWidth="57.0" text="Conexao" />

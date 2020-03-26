@@ -1,6 +1,5 @@
 package application;
 
-import br.com.jdsb.valhalla.integracao.quartiz.apontamento.AgendarApontamento;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -27,7 +26,7 @@ public class Main extends Application {
 			try {
 //				AgendarApontamento agendarApontamento = new AgendarApontamento();
 //				agendarApontamento.schedule(primaryStage);
-				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_chamado.fxml"));
+				VBox root = (VBox)FXMLLoader.load(getClass().getResource("m_ponto.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);

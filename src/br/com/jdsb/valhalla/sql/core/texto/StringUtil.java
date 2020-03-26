@@ -44,6 +44,30 @@ public class StringUtil {
 		return result;
     }
 
+	public String converteDataParametroD(Date dtData){
+		SimpleDateFormat out = new SimpleDateFormat("dd-MM-yyyy");
+		String result = out.format(dtData);
+		return result;
+    }
+
+	public String converteHora(Date dtData){
+		if(dtData!=null){
+		SimpleDateFormat out = new SimpleDateFormat("HH:mm");
+		String result = out.format(dtData);
+		return result;
+		}else{
+			return "00:00";
+		}
+    }
+
+	public String converteDataParametroD2(Date dtData){
+		SimpleDateFormat out = new SimpleDateFormat("dd_MM_yyyy");
+		String result = out.format(dtData);
+		return result;
+    }
+
+
+
 	public StringBuilder cabecalho(String supri, String descricao,String produto,String owner, String tabela) throws ParseException{
 		StringBuilder retorno = new StringBuilder();
 		retorno = retorno.append(String.format(CONSTANTE_CABECALHO, supri,descricao,converteDataCabecalho(new Date()),produto,owner,tabela));

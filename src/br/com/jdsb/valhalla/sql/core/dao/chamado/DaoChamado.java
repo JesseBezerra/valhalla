@@ -5,12 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.com.jdsb.valhalla.sql.core.connection.ConexaoLite;
 import br.com.jdsb.valhalla.sql.core.connection.ConnectionMysql;
 import br.com.jdsb.valhalla.sql.core.dao.Dao;
+import br.com.jdsb.valhalla.sql.core.texto.StringUtil;
 import br.com.jdsb.valhalla.sql.objects.chamado.Chamado;
 
 public class DaoChamado implements Dao<Chamado> {
@@ -19,7 +24,8 @@ public class DaoChamado implements Dao<Chamado> {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-
+	Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+	StringUtil util;
 	/**
 	 * CD_TICKET,
 	 * DS_TICKET,
@@ -30,6 +36,10 @@ public class DaoChamado implements Dao<Chamado> {
 	 * TOTAL_PERCENTUAL_CONCLUSAO
 	 * CD_TICKET_ASSOCIADO
 	 */
+
+	public DaoChamado() {
+		util = new StringUtil();
+	}
 
 	@Override
 	public void criarTabela() {
@@ -70,7 +80,8 @@ public class DaoChamado implements Dao<Chamado> {
 		 		                            + "TOTAL_PERCENTUAL_CONCLUSAO,"
 		 		                            + "CD_TICKET_ASSOCIADO,"
 		 		                            + "SN_PRIORITARIO,"
-		 		                            + "NR_ORDEM_PRIORIDADE) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		 		                            + "NR_ORDEM_PRIORIDADE,"
+		 		                            + "DT_ULTIMA_INTEVENCAO) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
          try {
  			Connection connection = ConnectionMysql.getConnection();
  		    PreparedStatement pstmt = connection.prepareStatement(comando);
@@ -84,6 +95,7 @@ public class DaoChamado implements Dao<Chamado> {
  		    pstmt.setString(8, t.getCdTicketAssociado());
  		    pstmt.setString(9, t.getSnPrioritario());
  		    pstmt.setString(10, t.getNrOrdemPrioridade());
+ 		    pstmt.setTimestamp(11, new Timestamp(new Date().getTime()),cal);
  		    pstmt.execute();
  		   pstmt.close();
  		    connection.close();
@@ -160,7 +172,7 @@ public class DaoChamado implements Dao<Chamado> {
 
 	@Override
 	public void atualizar(Chamado t) {
-		String comando = "UPDATE CHAMADO SET DS_TICKET = ? ,CD_USUARIO = ?,DS_OBSERVACAO = ? ,SN_ATIVO = ? ,TOTAL_MINUTOS_TRABALHADOS = ?,TOTAL_PERCENTUAL_CONCLUSAO = ?,CD_TICKET_ASSOCIADO = ?,SN_PRIORITARIO = ?, NR_ORDEM_PRIORIDADE = ? WHERE CD_TICKET = ? ";
+		String comando = "UPDATE CHAMADO SET DS_TICKET = ? ,CD_USUARIO = ?,DS_OBSERVACAO = ? ,SN_ATIVO = ? ,TOTAL_MINUTOS_TRABALHADOS = ?,TOTAL_PERCENTUAL_CONCLUSAO = ?,CD_TICKET_ASSOCIADO = ?,SN_PRIORITARIO = ?, NR_ORDEM_PRIORIDADE = ?,DT_ULTIMA_INTEVENCAO = ? WHERE CD_TICKET = ? ";
 		 try {
 	 			Connection connection = ConnectionMysql.getConnection();
 	 		    PreparedStatement pstmt = connection.prepareStatement(comando);
@@ -173,7 +185,9 @@ public class DaoChamado implements Dao<Chamado> {
 	 		    pstmt.setString(7, t.getCdTicketAssociado());
 	 		    pstmt.setString(8, t.getSnPrioritario());
 	 		    pstmt.setString(9, t.getNrOrdemPrioridade());
-	 		    pstmt.setString(10, t.getCdTicket());
+	 		    pstmt.setTimestamp(10, new Timestamp(new Date().getTime()),cal);
+	 		    pstmt.setString(11, t.getCdTicket());
+
 	 		    pstmt.execute();
 	 		} catch (SQLException e) {
 	 			// TODO Auto-generated catch block
@@ -210,6 +224,40 @@ public class DaoChamado implements Dao<Chamado> {
 				Connection connection = ConnectionMysql.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
 			    pstmt.setString(1, cdUsuario);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Chamado(rs.getString("CD_TICKET"),
+			    			                rs.getString("DS_TICKET"),
+			    			                rs.getString("CD_USUARIO"),
+			    			                rs.getString("DS_OBSERVACAO"),
+			    			                rs.getString("SN_ATIVO"),
+			    			                new BigInteger(rs.getString("TOTAL_MINUTOS_TRABALHADOS")),
+			    			                new BigInteger(rs.getString("TOTAL_PERCENTUAL_CONCLUSAO")),
+			    			                rs.getString("CD_TICKET_ASSOCIADO"),
+			    			                rs.getString("SN_PRIORITARIO"),
+			    			                rs.getString("NR_ORDEM_PRIORIDADE")
+
+			    			));
+			    }
+			    pstmt.close();
+			    connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
+	public List<Chamado> listarChamadosUsuarioPorData(String cdUsuario, Date dtChamado) {
+		List<Chamado> retorno = new ArrayList<Chamado>();
+
+	      String consulta = "SELECT CD_TICKET,DS_TICKET,CD_USUARIO,DS_OBSERVACAO,SN_ATIVO,TOTAL_MINUTOS_TRABALHADOS,TOTAL_PERCENTUAL_CONCLUSAO,CD_TICKET_ASSOCIADO,SN_PRIORITARIO, NR_ORDEM_PRIORIDADE FROM CHAMADO WHERE CD_USUARIO = ? and AND DATE_FORMAT(DT_ULTIMA_ITEVENCAO,'%d/%m/%Y') = ? ";
+	      try {
+				Connection connection = ConnectionMysql.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, cdUsuario);
+			    pstmt.setString(2, util.converteDataParametro(dtChamado));
 			    ResultSet rs = pstmt.executeQuery();
 			    while(rs.next()){
 			    	retorno.add(new Chamado(rs.getString("CD_TICKET"),

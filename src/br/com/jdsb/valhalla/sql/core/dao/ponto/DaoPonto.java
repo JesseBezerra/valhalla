@@ -16,6 +16,7 @@ import br.com.jdsb.valhalla.sql.core.dao.Dao;
 import br.com.jdsb.valhalla.sql.core.jfx.dialog.Dialogs;
 import br.com.jdsb.valhalla.sql.core.texto.StringUtil;
 import br.com.jdsb.valhalla.sql.objects.ponto.Ponto;
+import br.com.jdsb.valhalla.sql.objects.ponto.PontoTo;
 
 public class DaoPonto implements Dao<Ponto> {
 
@@ -126,6 +127,98 @@ public class DaoPonto implements Dao<Ponto> {
 			}
 
 	      return retorno;
+	}
+
+
+	public List<PontoTo> listarTo(String data, String cdUsuario) {
+		StringUtil utl = new StringUtil();
+		List<Ponto> retorno = new ArrayList<Ponto>();
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        List<PontoTo> listaConvertida = new ArrayList<PontoTo>();
+	      String consulta = "SELECT CD_PONTO, CD_USUARIO, DT_INIC_PONTO, DT_ALMOCO_PONTO, DT_VOLTA_PONTO, DT_FIM_PONTO FROM PONTO WHERE DATE_FORMAT(DT_INIC_PONTO,'%d/%m/%Y') = ? AND CD_USUARIO = ? ";
+	      try {
+				Connection connection = ConnectionMysql.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, data);
+			    pstmt.setString(2, cdUsuario);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Ponto(rs.getInt("CD_PONTO"),rs.getTimestamp("DT_INIC_PONTO",cal),rs.getTimestamp("DT_ALMOCO_PONTO",cal),rs.getTimestamp("DT_VOLTA_PONTO",cal),rs.getTimestamp("DT_FIM_PONTO",cal),rs.getString("CD_USUARIO")));
+			    }
+			    pstmt.close();
+			    connection.close();
+
+			    for(Ponto ponto:retorno){
+			    	listaConvertida.add(new PontoTo(ponto.getCdPonto(), utl.converteDataParametro(ponto.getDtInicPonto()), ponto.getCdUsuario(), utl.converteHora(ponto.getDtInicPonto()), utl.converteHora(ponto.getDtAlmocoPonto()), utl.converteHora(ponto.getDtVoltaPonto()), utl.converteHora(ponto.getDtFimPonto())));
+			    }
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return listaConvertida;
+	}
+
+	public List<PontoTo> listarTo(String data,String dataAte, String cdUsuario) {
+		StringUtil utl = new StringUtil();
+		List<Ponto> retorno = new ArrayList<Ponto>();
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        List<PontoTo> listaConvertida = new ArrayList<PontoTo>();
+	      String consulta = "SELECT CD_PONTO, CD_USUARIO, DT_INIC_PONTO, DT_ALMOCO_PONTO, DT_VOLTA_PONTO, DT_FIM_PONTO FROM PONTO WHERE DATE_FORMAT(DT_INIC_PONTO,'%d/%m/%Y') BETWEEN  ? AND ? AND CD_USUARIO = ? ";
+	      try {
+				Connection connection = ConnectionMysql.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, data);
+			    pstmt.setString(2, dataAte);
+			    pstmt.setString(3, cdUsuario);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno.add(new Ponto(rs.getInt("CD_PONTO"),rs.getTimestamp("DT_INIC_PONTO",cal),rs.getTimestamp("DT_ALMOCO_PONTO",cal),rs.getTimestamp("DT_VOLTA_PONTO",cal),rs.getTimestamp("DT_FIM_PONTO",cal),rs.getString("CD_USUARIO")));
+			    }
+			    pstmt.close();
+			    connection.close();
+
+			    for(Ponto ponto:retorno){
+			    	listaConvertida.add(new PontoTo(ponto.getCdPonto(), utl.converteDataParametro(ponto.getDtInicPonto()), ponto.getCdUsuario(), utl.converteHora(ponto.getDtInicPonto()), utl.converteHora(ponto.getDtAlmocoPonto()), utl.converteHora(ponto.getDtVoltaPonto()), utl.converteHora(ponto.getDtFimPonto())));
+			    }
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	      return listaConvertida;
+	}
+
+	//UPDATE `PONTO` SET `DT_INIC_PONTO` = '2020-03-25 07:51:51' WHERE `PONTO`.`CD_PONTO` = 16;
+
+	public void atualizar(PontoTo t) {
+		String comando = "UPDATE PONTO SET DT_INIC_PONTO = ?, DT_ALMOCO_PONTO =  ?, DT_VOLTA_PONTO = ?, DT_FIM_PONTO = ?  WHERE CD_PONTO = ? ";
+        try {
+			Connection connection = ConnectionMysql.getConnection();
+		    PreparedStatement pstmt = connection.prepareStatement(comando);
+		    pstmt.setString(1, retornaModelo(t.getCdDia(), t.getHrInic()));
+		    pstmt.setString(2, retornaModelo(t.getCdDia(), t.getHrAlmoco()));
+		    pstmt.setString(3, retornaModelo(t.getCdDia(), t.getHrVolta()));
+		    pstmt.setString(4, retornaModelo(t.getCdDia(), t.getHrSaida()));
+		    pstmt.setInt(5, t.getCdPonto());
+		    pstmt.execute();
+		    pstmt.close();
+		    connection.close();
+		} catch (SQLException e) {
+			Dialogs.AletaE("Atenção", "Ocorreu um erro ao salvar o ponto", e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+
+	}
+
+	public String retornaModelo(String data, String hora){
+		   String[] tokens = data.split("/");
+		   String dataFormatada = "";
+		   if(tokens.length==3){
+              dataFormatada = tokens[2].concat("-").concat(tokens[1]).concat("-").concat(tokens[0]).concat(" ").concat(hora).concat(":").concat("00");
+		   }
+
+		   return dataFormatada;
 	}
 
 	@Override

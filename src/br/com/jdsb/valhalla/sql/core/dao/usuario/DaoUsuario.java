@@ -71,10 +71,29 @@ public class DaoUsuario implements Dao<Usuario> {
 	      return retorno;
 	}
 
+	public Usuario consultarPorNome(String condicao) {
+		   Usuario retorno = null;
+	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO WHERE NM_USUARIO = ?";
+	      try {
+				Connection connection = ConnectionMysql.getConnection();
+			    PreparedStatement pstmt = connection.prepareStatement(consulta);
+			    pstmt.setString(1, condicao);
+			    ResultSet rs = pstmt.executeQuery();
+			    while(rs.next()){
+			    	retorno = (new Usuario(rs.getString("CD_USUARIO"),rs.getString("NM_USUARIO"),rs.getString("TP_USUARIO"),rs.getString("SN_ATIVO")));
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	      return retorno;
+	}
+
 	@Override
 	public List<Usuario> listar() {
 		List<Usuario> retorno = new ArrayList<Usuario>();
-	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO";
+	      String consulta = "SELECT CD_USUARIO,NM_USUARIO,TP_USUARIO,SN_ATIVO FROM USUARIO WHERE SN_ATIVO = 'Sim' ";
 	      try {
 				Connection connection = ConnectionMysql.getConnection();
 			    PreparedStatement pstmt = connection.prepareStatement(consulta);
